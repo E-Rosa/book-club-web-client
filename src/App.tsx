@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   const [users, setUsers] = useState({});
-  const [hasLoaded, setHasLoaded] = useState(false);
+  //const [hasLoaded, setHasLoaded] = useState(false);
 
   async function getUsersWithTimeout(){
     const timeout = 20000;

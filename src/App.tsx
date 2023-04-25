@@ -8,13 +8,17 @@ function App() {
   const [users, setUsers] = useState({});
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  async function getUsers(){
-    const response = await fetch("https://book-club-web-server.vercel.app/users", {method:"GET"})
+  async function getUsersWithTimeout(){
+    const timeout = 20000;
+    const controller = new AbortController()
+    const id = setTimeout(()=>controller.abort(), timeout)
+    const response = await fetch("https://book-club-web-server.vercel.app/users", {method:"GET", signal:controller.signal});
+    clearTimeout(id)
     const parsedResponse = await response.json()
     return parsedResponse;
   }
   useEffect(()=>{
-    getUsers()
+    getUsersWithTimeout()
     .then((data)=>{
       setUsers(data)
     })

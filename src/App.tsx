@@ -6,6 +6,7 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   const [users, setUsers] = useState({});
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   async function getUsers(){
     const response = await fetch("https://book-club-web-server.vercel.app/users", {method:"GET"})

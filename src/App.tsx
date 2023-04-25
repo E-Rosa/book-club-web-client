@@ -10,10 +10,16 @@ function App() {
   async function getUsers(){
     const response = await fetch("https://book-club-web-server.vercel.app/users", {method:"GET"})
     const parsedResponse = await response.json()
-    setUsers(parsedResponse)
+    return parsedResponse;
   }
   useEffect(()=>{
     getUsers()
+    .then((data)=>{
+      setUsers(data)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
   }, [])
 
   return (

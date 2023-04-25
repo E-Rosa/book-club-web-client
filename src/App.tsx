@@ -9,13 +9,20 @@ function App() {
   //const [hasLoaded, setHasLoaded] = useState(false);
 
   async function getUsersWithTimeout(){
-    const timeout = 20000;
-    const controller = new AbortController()
-    const id = setTimeout(()=>controller.abort(), timeout)
-    const response = await fetch("https://book-club-web-server.vercel.app/users", {method:"GET", signal:controller.signal});
-    clearTimeout(id)
-    const parsedResponse = await response.json()
-    return parsedResponse;
+    let retries = 0;
+    while(retries < 3){
+      try{
+        const response = await fetch("https://book-club-web-server.vercel.app/users", {method:"GET"})
+        const parsedResponse = await response.json()
+        return parsedResponse;
+      }
+      catch{
+        console.log('attempted to fetch '+(retries+1)+' times');
+        retries++
+      }
+    }
+    throw new Error("failed to fetch data after 3 retries")
+    
   }
   useEffect(()=>{
     getUsersWithTimeout()

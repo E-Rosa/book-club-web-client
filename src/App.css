@@ -1,3 +1,9 @@
+:root{
+  --logo-red:#d53636;
+  --logo-blue:#4d51b4;
+  --logo-yellow:#b8ac24;
+  --logo-purple:#58255f;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;

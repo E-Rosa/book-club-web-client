@@ -1,26 +1,31 @@
-import { useEffect, useState } from "react";
-import UsersRepo from "./api/repository/usersRepo";
+import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginPage from "./components/pages/login";
 import "./App.css";
 import Loader from "./components/loader/loader";
+import Homepage from "./components/pages/home";
+import Error from "./components/error/error";
+import SignupPage from "./components/pages/signup";
 
 function App() {
-  const [users, setUsers] = useState({});
+  //loading
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    UsersRepo.getUsers(setIsLoading)
-      .then((data) => {
-        setUsers(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
+  //error
+  const [isErrorActive, setIsErrorActive] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  
   return (
     <>
       <Loader isLoading={isLoading}></Loader>
-      <p>my users are: {JSON.stringify(users)}</p>
+      <Error isActive={isErrorActive} message={errorMessage} isActiveSetter={setIsErrorActive}></Error>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="/login" element={<LoginPage loadingSetter={setIsLoading} />}></Route>
+          <Route path="/signup" element={<SignupPage loadingSetter={setIsLoading}/>}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

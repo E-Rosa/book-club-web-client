@@ -1,23 +1,25 @@
 .loader-container {
-    width: 100vw;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    top:0;
-    left:0;
-    background: rgba(0, 0, 0, 0.834);
-    z-index: 1;
+    position:absolute;
+    top:1em;
+    left:1em;
+    padding:.3em;
+    background-color:white;
+    z-index:1000;
 }
 
 .loader-spinner {
-    width: 64px;
-    height: 64px;
+    width: 1.5em;
+    height: 1.5em;
     border: 8px solid;
-    border-color: #3d5af1 transparent #3d5af1 transparent;
+    border-color: var(--pastel-blue) transparent var(--pastel-blue) transparent;
     border-radius: 50%;
     animation: spin-anim 1.2s linear infinite;
+ /*    background-image: url("../../assets/heart-white.png");
+    background-size: contain;
+    background-repeat: no-repeat; */
 }
 
 @keyframes spin-anim {

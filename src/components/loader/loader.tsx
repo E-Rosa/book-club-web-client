@@ -9,7 +9,7 @@ const Loader: FunctionComponent<LoaderProps> = (props) => {
   return (
     <>
       {props.isLoading && (
-        <div className="loader-container">
+        <div className="loader-container s-border s-shadow">
           <div className="loader-spinner"></div>
         </div>
       )}

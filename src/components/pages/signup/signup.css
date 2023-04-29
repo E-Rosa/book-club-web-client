@@ -1,0 +1,19 @@
+.SignupPage{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:1em;
+    min-height:calc(100vh - 6px);
+}
+.SignupPage form{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    padding:1.5em;
+    border-radius:5px;
+    max-width:250px;
+}
+.SignupPage img{
+    max-width:300px;
+}

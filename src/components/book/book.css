@@ -1,0 +1,42 @@
+.BookComponent{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:0px;
+    padding:1.5em;
+    max-width:600px;
+    background-color: white;
+    text-align: start;
+    border:3px solid black;
+    border-radius:20px;
+    box-shadow: 6px 6px black;
+}
+@media screen and (max-width:400px){
+    .BookComponent{
+        max-width:250px;
+    }
+}
+.Book-title{
+    margin-right:1em;
+}
+.Book-author{
+
+}
+
+.heart{
+    max-width:30px;
+    max-height:30px;
+    cursor:pointer;
+    transition: .2s;
+}
+.heart:hover{
+    transform:scale(1.2);
+}
+.vote-tags-container{
+    margin-top:1em;
+    flex-wrap: wrap;
+}
+.voter-tag{
+    padding: .1em 1em;
+    animation: popIn .2s ease-in-out;
+}

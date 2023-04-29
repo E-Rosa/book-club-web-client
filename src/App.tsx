@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./components/pages/login";
+import LoginPage from "./components/pages/login/login";
 import "./App.css";
+import "./styles/globals.css";
 import Loader from "./components/loader/loader";
-import Homepage from "./components/pages/home";
+import Homepage from "./components/pages/home/home";
 import Error from "./components/error/error";
-import SignupPage from "./components/pages/signup";
+import SignupPage from "./components/pages/signup/signup";
+import Success from "./components/success/success";
+import NewBookPage from "./components/pages/postBook/postBook";
 
 function App() {
   //loading
@@ -13,17 +16,60 @@ function App() {
 
   //error
   const [isErrorActive, setIsErrorActive] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  
+
+  //success
+  const [isSuccessActive, setIsSuccessActive] = useState(false);
+
   return (
     <>
-      <Loader isLoading={isLoading}></Loader>
-      <Error isActive={isErrorActive} message={errorMessage} isActiveSetter={setIsErrorActive}></Error>
+      <Loader isLoading={isLoading} />
+      <Error
+        isActive={isErrorActive}
+        isActiveSetter={setIsErrorActive}
+      />
+      <Success isActive={isSuccessActive} />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />}></Route>
-          <Route path="/login" element={<LoginPage loadingSetter={setIsLoading} />}></Route>
-          <Route path="/signup" element={<SignupPage loadingSetter={setIsLoading}/>}></Route>
+          <Route
+            path="/home"
+            element={
+              <Homepage
+                loadingSetter={setIsLoading}
+                errorIsActiveSetter={setIsErrorActive}
+                successIsActiveSetter={setIsSuccessActive}
+              />
+            }
+          ></Route>
+          <Route
+            path="/"
+            element={
+              <LoginPage
+                loadingSetter={setIsLoading}
+                errorIsActiveSetter={setIsErrorActive}
+                successIsActiveSetter={setIsSuccessActive}
+              />
+            }
+          ></Route>
+          <Route
+            path="/signup"
+            element={
+              <SignupPage
+                loadingSetter={setIsLoading}
+                errorIsActiveSetter={setIsErrorActive}
+                successIsActiveSetter={setIsSuccessActive}
+              />
+            }
+          ></Route>
+                    <Route
+            path="/books/post"
+            element={
+              <NewBookPage
+                loadingSetter={setIsLoading}
+                errorIsActiveSetter={setIsErrorActive}
+                successIsActiveSetter={setIsSuccessActive}
+              />
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>

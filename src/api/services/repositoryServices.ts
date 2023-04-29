@@ -9,12 +9,12 @@ class RepositoryServices {
     loadingSetter(true);
     while (retries < 3) {
       try {
-        const requestResult = await tryFunction(loadingSetter)
+        const requestResult = await tryFunction()
         if(requestResult){
           loadingSetter(false)
         }
         return requestResult
-      } catch {
+      } catch (error){
         console.log("attempted to fetch " + (retries + 1) + " times");
         retries++;
         if(retries == 3){
@@ -22,7 +22,7 @@ class RepositoryServices {
         }
       }
     }
-    throw new Error("failed to fetch data after 3 retries");
+    throw new Error("contato com o servidor falhou três vezes");
   }
 }
 

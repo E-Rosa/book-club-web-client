@@ -1,0 +1,16 @@
+.Success-container{
+    position:absolute;
+    top:1em;
+    left:1em;
+    animation: fadeIn .5s ease-in;
+    padding:.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:white;
+    z-index:1000;
+}
+.right-icon{
+    width:2.2em;
+    height:2.2em;
+}

@@ -1,0 +1,30 @@
+.NewBook{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    gap:1em
+}
+.NewBook form{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    max-width:600px;
+    gap:1em;
+}
+@media screen and (max-width: 400px){
+    .NewBook form{
+        max-width:220px;
+    }
+}
+.Book-title{
+    margin:0;
+    max-width:600px;
+}
+.NewBookPage{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1em;
+    min-height:calc(100vh - 6px)
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LoginPage from "./components/pages/login/login";
 import "./App.css";
 import "./styles/globals.css";
@@ -26,7 +26,6 @@ function App() {
       <Loader isLoading={isLoading} />
       <Error isActive={isErrorActive} isActiveSetter={setIsErrorActive} />
       <Success isActive={isSuccessActive} />
-      <BrowserRouter>
         <Routes>
           <Route path="/home">
             <Homepage
@@ -66,7 +65,6 @@ function App() {
             }
           ></Route>
         </Routes>
-      </BrowserRouter>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/pages/login/login";
 import "./App.css";
 import "./styles/globals.css";
@@ -23,23 +23,17 @@ function App() {
   return (
     <>
       <Loader isLoading={isLoading} />
-      <Error
-        isActive={isErrorActive}
-        isActiveSetter={setIsErrorActive}
-      />
+      <Error isActive={isErrorActive} isActiveSetter={setIsErrorActive} />
       <Success isActive={isSuccessActive} />
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/home"
-            element={
-              <Homepage
-                loadingSetter={setIsLoading}
-                errorIsActiveSetter={setIsErrorActive}
-                successIsActiveSetter={setIsSuccessActive}
-              />
-            }
-          ></Route>
+          <Route path="/home">
+            <Homepage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          </Route>
           <Route
             path="/"
             element={
@@ -60,7 +54,7 @@ function App() {
               />
             }
           ></Route>
-                    <Route
+          <Route
             path="/books/post"
             element={
               <NewBookPage

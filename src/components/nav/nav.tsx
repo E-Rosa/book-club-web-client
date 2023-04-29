@@ -1,6 +1,8 @@
 import { FunctionComponent } from "react";
 import logo from "../../assets/book-club-web-logo-horizontal.png";
 import "./nav.css";
+import { redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface NavProps {}
 
@@ -14,19 +16,19 @@ const Nav: FunctionComponent<NavProps> = () => {
             type="button"
             className="s-border s-shadow pastel-red s-padding-top m-padding sides"
             onClick={() => {
-              window.location.href = "/home";
+               redirect("/home")
             }}
           >
             votar
           </button>
-          <a href="/books/post">
+          <Link to="/books/post">
             <button
               type="button"
               className="s-border s-shadow s-padding-top m-padding sides"
             >
               sugerir
             </button>
-          </a>
+          </Link>
         </div>
 
         <div className="logout-button-container">
@@ -36,7 +38,7 @@ const Nav: FunctionComponent<NavProps> = () => {
             onClick={() => {
               window.sessionStorage.removeItem("user");
               window.sessionStorage.removeItem("jwt");
-              window.location.href = "/";
+              redirect("/")
             }}
           >
             sair

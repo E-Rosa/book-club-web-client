@@ -11,6 +11,7 @@ import { setError } from "../../error/error";
 import './signup.css';
 import logo from "../../../assets/book-club-web-logo-unique.png"
 import { setSuccess } from "../../success/success";
+import { Link, redirect } from "react-router-dom";
 
 interface SignupPageProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
@@ -42,7 +43,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
             }
             await UserRepo.signup(props.loadingSetter, signUpData);
             setSuccess(props.successIsActiveSetter)
-            setTimeout(()=>{window.location.href='/'},1000)
+            setTimeout(()=>{redirect("/")},1000)
           } catch (error: any) {
             setError(props.errorIsActiveSetter)
           }
@@ -77,9 +78,9 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
           className="s-shadow s-border m-padding-top g-padding-sides"
         ></input>
         <button type="submit" className="login-button s-shadow s-border bright-yellow">cadastrar</button>
-        <a href="/">
+        <Link to="/">
           <button type="button" className="signup-button s-shadow s-border bright-yellow-desaturated">voltar</button>
-        </a>
+        </Link>
       </form>
     </div>
   );

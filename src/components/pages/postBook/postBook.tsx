@@ -12,6 +12,7 @@ import { setError } from "../../error/error";
 import { setSuccess } from "../../success/success";
 import Nav from "../../nav/nav";
 import { Book } from "../../../api/interfaces/interfaces";
+import { redirect } from "react-router-dom";
 
 
 interface BookComponentProps {
@@ -43,7 +44,7 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
                 event.preventDefault();
                 await BookRepo.postBook(props.loadingSetter, newBookData);
                 setSuccess(props.successIsActiveSetter)
-                setTimeout(()=>{window.location.href="/home"}, 1000)
+                setTimeout(()=>{redirect("/home")}, 1000)
             }
             catch{
                 setError(props.errorIsActiveSetter)

@@ -11,6 +11,7 @@ import { useState } from "react";
 import { setSuccess } from "../../success/success";
 import { setError } from "../../error/error";
 import UserRepo from "../../../api/repository/userRepo";
+import { Link, redirect } from "react-router-dom";
 
 interface LoginPageProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
@@ -45,7 +46,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = (props) => {
               window.sessionStorage.setItem("user", JSON.stringify(user));
               setSuccess(props.successIsActiveSetter);
               setTimeout(() => {
-                window.location.href = "/home";
+                redirect("/home")
               }, 1000);
             } catch (error: any) {
               setError(props.errorIsActiveSetter);
@@ -72,14 +73,14 @@ const LoginPage: FunctionComponent<LoginPageProps> = (props) => {
           >
             entrar
           </button>
-          <a href="/signup">
+          <Link to="/signup">
             <button
               type="button"
               className="signup-button s-shadow s-border bright-yellow-desaturated"
             >
               cadastrar
             </button>
-          </a>
+          </Link>
         </form>
       </div>
     </div>

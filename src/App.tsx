@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/pages/login/login";
 import "./App.css";
 import "./styles/globals.css";
+import "./index.css";
 import Loader from "./components/loader/loader";
 import Homepage from "./components/pages/home/home";
 import Error from "./components/error/error";

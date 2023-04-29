@@ -14,13 +14,14 @@ interface TimelineProps {
 
 const Timeline: FunctionComponent<TimelineProps> = (props) => {
   const [books, setBooks] = useState([]);
+  console.log(".")
   useEffect(() => {
     BookRepo.getBooks(props.loadingSetter)
       .then((books) => {
         setBooks(books);
       })
       .catch(() => {
-        setError(props.errorIsActiveSetter);
+        setError(props.errorIsActiveSetter)
       });
   }, []);
   const bookComponents = () => {

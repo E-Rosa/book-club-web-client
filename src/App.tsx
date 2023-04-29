@@ -26,45 +26,48 @@ function App() {
       <Loader isLoading={isLoading} />
       <Error isActive={isErrorActive} isActiveSetter={setIsErrorActive} />
       <Success isActive={isSuccessActive} />
-        <Routes>
-          <Route path="/home">
+      <Routes>
+        <Route
+          path="/home"
+          element={
             <Homepage
               loadingSetter={setIsLoading}
               errorIsActiveSetter={setIsErrorActive}
               successIsActiveSetter={setIsSuccessActive}
             />
-          </Route>
-          <Route
-            path="/"
-            element={
-              <LoginPage
-                loadingSetter={setIsLoading}
-                errorIsActiveSetter={setIsErrorActive}
-                successIsActiveSetter={setIsSuccessActive}
-              />
-            }
-          ></Route>
-          <Route
-            path="/signup"
-            element={
-              <SignupPage
-                loadingSetter={setIsLoading}
-                errorIsActiveSetter={setIsErrorActive}
-                successIsActiveSetter={setIsSuccessActive}
-              />
-            }
-          ></Route>
-          <Route
-            path="/books/post"
-            element={
-              <NewBookPage
-                loadingSetter={setIsLoading}
-                errorIsActiveSetter={setIsErrorActive}
-                successIsActiveSetter={setIsSuccessActive}
-              />
-            }
-          ></Route>
-        </Routes>
+          }
+        ></Route>
+        <Route
+          path="/"
+          element={
+            <LoginPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        ></Route>
+        <Route
+          path="/signup"
+          element={
+            <SignupPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        ></Route>
+        <Route
+          path="/books/post"
+          element={
+            <NewBookPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        ></Route>
+      </Routes>
     </>
   );
 }

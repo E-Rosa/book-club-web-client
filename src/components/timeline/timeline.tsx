@@ -19,7 +19,7 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
       .then((books) => {
         setBooks(books);
       })
-      .catch((error) => {
+      .catch(() => {
         setError(props.errorIsActiveSetter);
       });
   }, []);

@@ -2,7 +2,6 @@ import "../../book/book.css";
 import "./postBook.css"
 import {
   FunctionComponent,
-  MouseEvent,
   SetStateAction,
   Dispatch,
   useState,
@@ -42,7 +41,7 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
         <form className="BookComponent" onSubmit={async (event)=>{
             try{
                 event.preventDefault();
-                const postedBook = await BookRepo.postBook(props.loadingSetter, newBookData);
+                await BookRepo.postBook(props.loadingSetter, newBookData);
                 setSuccess(props.successIsActiveSetter)
                 setTimeout(()=>{window.location.href="/home"}, 1000)
             }

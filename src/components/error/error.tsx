@@ -1,4 +1,4 @@
-import { Dispatch, FunctionComponent, SetStateAction, useEffect } from "react";
+import { Dispatch, FunctionComponent, SetStateAction} from "react";
 import errorIcon from "../../assets/error-icon.png"
 import "./error.css";
 

@@ -1,6 +1,5 @@
 import {
   FunctionComponent,
-  MouseEvent,
   SetStateAction,
   Dispatch,
   useState,
@@ -70,32 +69,10 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
     });
     return voterTags
   };
-  const heart = (userEmail: string, voters: User[]) => {
-    const whiteHeartIcon = (
-      <img
-        src={whiteHeart}
-        alt="heart"
-        className="heart"
-        onClick={handleVote}
-      ></img>
-    );
-    const redHeartIcon = (
-      <img
-        src={redHeart}
-        alt="heart"
-        className="heart"
-        onClick={handleUnvote}
-      ></img>
-    );
-    const voterEmails = voters.map((vote) => {
-      return vote.email;
-    });
-    return voterEmails.includes(userEmail) ? redHeartIcon : whiteHeartIcon;
-  };
-  async function handleVote(event: MouseEvent<HTMLImageElement>) {
+  async function handleVote() {
     try {
       setIsVotable(false)
-      const votedBook = await BookRepo.voteOnBook(
+      await BookRepo.voteOnBook(
         props.loadingSetter,
         props.book.id
       );
@@ -114,10 +91,10 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       setError(props.errorIsActiveSetter);
     }
   }
-  async function handleUnvote(event: MouseEvent<HTMLImageElement>) {
+  async function handleUnvote() {
     try {
       setIsVotable(false)
-      const unvotedBook = await BookRepo.unvoteOnBook(
+      await BookRepo.unvoteOnBook(
         props.loadingSetter,
         props.book.id
       );

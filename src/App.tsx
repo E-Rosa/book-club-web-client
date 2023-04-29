@@ -67,6 +67,16 @@ function App() {
             />
           }
         ></Route>
+        <Route
+          path="*"
+          element={
+            <LoginPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        />
       </Routes>
     </>
   );

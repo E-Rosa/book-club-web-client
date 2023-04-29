@@ -1,27 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { useState } from "react";
-import { createBrowserRouter} from "react-router-dom";
+/* import { createBrowserRouter} from "react-router-dom"; */
 import App from "./App";
-import LoginPage from "./components/pages/login/login";
+/* import LoginPage from "./components/pages/login/login";
 //import Loader from "./components/loader/loader";
 import Homepage from "./components/pages/home/home";
 //import Error from "./components/error/error";
 import SignupPage from "./components/pages/signup/signup";
 //import Success from "./components/success/success";
-import NewBookPage from "./components/pages/postBook/postBook";
+import NewBookPage from "./components/pages/postBook/postBook"; */
 
-//loading
+/* //loading
 const [isLoading, setIsLoading] = useState(false);
 
 //error
 const [isErrorActive, setIsErrorActive] = useState(false);
 
 //success
-const [isSuccessActive, setIsSuccessActive] = useState(false);
+const [isSuccessActive, setIsSuccessActive] = useState(false); */
 
-const router = createBrowserRouter([
+/* const router = createBrowserRouter([
   {
     path: "/",
     element: (
@@ -62,8 +61,8 @@ const router = createBrowserRouter([
       />
     ),
   },
-]);
-console.log(router)
+]); */
+/* console.log(router) */
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

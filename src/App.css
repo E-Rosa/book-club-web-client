@@ -7,6 +7,9 @@
   --logo-purple: #58255f;
   
 }
+a{
+  text-decoration: none;
+}
 #root{
   max-width:calc(1280px);
   width:calc(100% - 6px);

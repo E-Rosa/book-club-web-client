@@ -11,8 +11,6 @@ import Success from "./components/success/success";
 import NewBookPage from "./components/pages/postBook/postBook";
 
 function App() {
-  window.onbeforeunload = ()=>{window.alert("atualizar a pagina pode travar a aplicação - tem certeza que deseja atualizar?")}
-
   //loading
   const [isLoading, setIsLoading] = useState(false);
 

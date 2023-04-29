@@ -29,6 +29,7 @@
     max-height:30px;
     cursor:pointer;
     transition: .2s;
+    margin-left:1em;
 }
 .heart:hover{
     transform:scale(1.2);

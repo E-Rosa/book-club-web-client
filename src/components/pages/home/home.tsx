@@ -13,17 +13,19 @@ interface HomepageProps {
 const Homepage: FunctionComponent<HomepageProps> = (props) => {
   return (
     <>
+          
       <Nav />
       <div className="Homepage">
-      
-      <Timeline
-        loadingSetter={props.loadingSetter}
-        errorIsActiveSetter={props.errorIsActiveSetter}
-        successIsActiveSetter={props.successIsActiveSetter}
-      />
+      <div className="Homepage-content">
+        <Timeline
+          loadingSetter={props.loadingSetter}
+          errorIsActiveSetter={props.errorIsActiveSetter}
+          successIsActiveSetter={props.successIsActiveSetter}
+        />
+      </div>
     </div>
     </>
-    
+
   );
 };
 

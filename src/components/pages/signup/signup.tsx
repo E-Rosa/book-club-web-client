@@ -8,10 +8,10 @@ import {
 import { SignUpData } from "../../../api/interfaces/interfaces";
 import UserRepo from "../../../api/repository/userRepo";
 import { setError } from "../../error/error";
-import './signup.css';
-import logo from "../../../assets/book-club-web-logo-unique.png"
+import "./signup.css";
+import logo from "../../../assets/book-club-web-logo-unique.png";
 import { setSuccess } from "../../success/success";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface SignupPageProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
@@ -39,14 +39,16 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
         onSubmit={async (event) => {
           try {
             event.preventDefault();
-            if(signUpData.password != signUpData.repeatPassword){
-              throw new Error("senhas não são identicas")
+            if (signUpData.password != signUpData.repeatPassword) {
+              throw new Error("senhas não são identicas");
             }
             await UserRepo.signup(props.loadingSetter, signUpData);
-            setSuccess(props.successIsActiveSetter)
-            setTimeout(()=>{navigate("/")},1000)
+            setSuccess(props.successIsActiveSetter);
+            setTimeout(() => {
+              navigate("/");
+            }, 1000);
           } catch (error: any) {
-            setError(props.errorIsActiveSetter)
+            setError(props.errorIsActiveSetter);
           }
         }}
       >
@@ -78,9 +80,19 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
           name="repeatPassword"
           className="s-shadow s-border m-padding-top g-padding-sides"
         ></input>
-        <button type="submit" className="login-button s-shadow s-border bright-yellow">cadastrar</button>
+        <button
+          type="submit"
+          className="login-button s-shadow s-border bright-yellow"
+        >
+          cadastrar
+        </button>
         <Link to="/">
-          <button type="button" className="signup-button s-shadow s-border bright-yellow-desaturated">voltar</button>
+          <button
+            type="button"
+            className="signup-button s-shadow s-border bright-yellow-desaturated"
+          >
+            voltar
+          </button>
         </Link>
       </form>
     </div>

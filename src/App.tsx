@@ -11,6 +11,8 @@ import Success from "./components/success/success";
 import NewBookPage from "./components/pages/postBook/postBook";
 
 function App() {
+  window.onbeforeunload = ()=>{window.location.href="https://book-club-web-client.vercel.app/"}
+
   //loading
   const [isLoading, setIsLoading] = useState(false);
 

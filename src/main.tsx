@@ -2,13 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
+import App from "./App";
 import LoginPage from "./components/pages/login/login";
-import Loader from "./components/loader/loader";
+//import Loader from "./components/loader/loader";
 import Homepage from "./components/pages/home/home";
-import Error from "./components/error/error";
+//import Error from "./components/error/error";
 import SignupPage from "./components/pages/signup/signup";
-import Success from "./components/success/success";
+//import Success from "./components/success/success";
 import NewBookPage from "./components/pages/postBook/postBook";
 
 //loading
@@ -62,12 +63,10 @@ const router = createBrowserRouter([
     ),
   },
 ]);
+console.log(router)
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Loader isLoading={isLoading} />
-    <Error isActive={isErrorActive} isActiveSetter={setIsErrorActive} />
-    <Success isActive={isSuccessActive} />
-    <RouterProvider router={router} />
+    <App />
   </React.StrictMode>
 );

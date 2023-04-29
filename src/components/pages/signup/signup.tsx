@@ -11,7 +11,7 @@ import { setError } from "../../error/error";
 import './signup.css';
 import logo from "../../../assets/book-club-web-logo-unique.png"
 import { setSuccess } from "../../success/success";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 interface SignupPageProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
@@ -31,6 +31,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
       return { ...prevSignUpData, [event.target.name]: event.target.value };
     });
   };
+  const navigate = useNavigate();
   return (
     <div className="SignupPage">
       <img src={logo}></img>
@@ -43,7 +44,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
             }
             await UserRepo.signup(props.loadingSetter, signUpData);
             setSuccess(props.successIsActiveSetter)
-            setTimeout(()=>{redirect("/")},1000)
+            setTimeout(()=>{navigate("/")},1000)
           } catch (error: any) {
             setError(props.errorIsActiveSetter)
           }

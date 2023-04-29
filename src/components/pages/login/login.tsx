@@ -11,7 +11,7 @@ import { useState } from "react";
 import { setSuccess } from "../../success/success";
 import { setError } from "../../error/error";
 import UserRepo from "../../../api/repository/userRepo";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginPageProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
@@ -29,6 +29,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = (props) => {
       return { ...prevLoginData, [event.target.name]: event.target.value };
     });
   };
+  const navigate = useNavigate();
   return (
     <div className="LoginPage">
       <div className="LoginPage-content">
@@ -46,7 +47,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = (props) => {
               window.sessionStorage.setItem("user", JSON.stringify(user));
               setSuccess(props.successIsActiveSetter);
               setTimeout(() => {
-                redirect("/home")
+                navigate("/home")
               }, 1000);
             } catch (error: any) {
               setError(props.errorIsActiveSetter);

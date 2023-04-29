@@ -1,12 +1,13 @@
 import { FunctionComponent } from "react";
 import logo from "../../assets/book-club-web-logo-horizontal.png";
 import "./nav.css";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 interface NavProps {}
 
 const Nav: FunctionComponent<NavProps> = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="Nav">
@@ -16,7 +17,7 @@ const Nav: FunctionComponent<NavProps> = () => {
             type="button"
             className="s-border s-shadow pastel-red s-padding-top m-padding sides"
             onClick={() => {
-               redirect("/home")
+               navigate("/home")
             }}
           >
             votar
@@ -38,7 +39,7 @@ const Nav: FunctionComponent<NavProps> = () => {
             onClick={() => {
               window.sessionStorage.removeItem("user");
               window.sessionStorage.removeItem("jwt");
-              redirect("/")
+              navigate("/")
             }}
           >
             sair

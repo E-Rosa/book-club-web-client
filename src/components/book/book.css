@@ -19,18 +19,27 @@
 }
 .Book-title{
     margin-right:1em;
+    font-weight:bold;
+}
+.book-title-input{
+    font-size: 1.4em;
+    font-weight: bold;
+    border: 0;
+    font-family: 'Rubik', sans-serif;
+    height:1.4em;
+}
+.book-author-input{
+    font-size: 1em;
+    border: 0;
+    font-family: 'Rubik', sans-serif;
+    height:1.1em;
+}
+.book-component-icons-container{
+    display:flex;
+    gap:.5em;
+    margin-left: 1em;
 }
 
-.heart{
-    max-width:30px;
-    max-height:30px;
-    cursor:pointer;
-    transition: .2s;
-    margin-left:1em;
-}
-.heart:hover{
-    transform:scale(1.2);
-}
 .vote-tags-container{
     margin-top:1em;
     flex-wrap: wrap;

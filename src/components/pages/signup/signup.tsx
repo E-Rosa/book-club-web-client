@@ -57,39 +57,39 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
           type="text"
           placeholder="email"
           name="email"
-          className="s-shadow s-border m-padding-top g-padding-sides"
+          className="standard-text-input"
         ></input>
         <input
           onChange={updateSignUpData}
           type="text"
           placeholder="nome e sobrenome"
           name="name"
-          className="s-shadow s-border m-padding-top g-padding-sides"
+          className="standard-text-input"
         ></input>
         <input
           onChange={updateSignUpData}
           type="password"
           placeholder="senha"
           name="password"
-          className="s-shadow s-border m-padding-top g-padding-sides"
+          className="standard-text-input"
         ></input>
         <input
           onChange={updateSignUpData}
           type="password"
           placeholder="repetir senha"
           name="repeatPassword"
-          className="s-shadow s-border m-padding-top g-padding-sides"
+          className="standard-text-input"
         ></input>
         <button
           type="submit"
-          className="login-button s-shadow s-border bright-yellow"
+          className="bright-yellow-button"
         >
           cadastrar
         </button>
         <Link to="/">
           <button
             type="button"
-            className="signup-button s-shadow s-border bright-yellow-desaturated"
+            className="bright-yellow-desaturated-button"
           >
             voltar
           </button>

@@ -16,7 +16,7 @@
 .Nav-first-items-container{
     display:flex;
     align-items: center;
-    gap:1vw;
+    gap:10px
 }
 .Nav-logout-button{
     display:flex;

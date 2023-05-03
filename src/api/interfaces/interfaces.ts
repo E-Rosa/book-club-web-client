@@ -21,7 +21,13 @@ interface Book{
   id: string;
   postAuthorId: string;
   title: string;
-  voters: User[]
+  voters?: User[];
+  readers?: User[];
+  isRead: boolean;
 }
 
-export type { SignUpData, LoginData, User, Book };
+
+
+type GetBooksFilter = "suggested" | "read" 
+
+export type { SignUpData, LoginData, User, Book, GetBooksFilter };

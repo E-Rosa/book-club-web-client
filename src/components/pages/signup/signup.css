@@ -9,10 +9,14 @@
 .SignupPage form{
     display:flex;
     flex-direction: column;
+    align-items: center;
     gap:10px;
     padding:1.5em;
     border-radius:5px;
     max-width:250px;
+}
+.SignupPage form *{
+    width:100%;
 }
 .SignupPage img{
     max-width:300px;

@@ -1,5 +1,5 @@
 import "../../book/book.css";
-import "./postBook.css"
+import "./postBook.css";
 import {
   FunctionComponent,
   SetStateAction,
@@ -14,7 +14,6 @@ import Nav from "../../nav/nav";
 import { Book } from "../../../api/interfaces/interfaces";
 import { useNavigate } from "react-router-dom";
 
-
 interface BookComponentProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
   errorIsActiveSetter: Dispatch<SetStateAction<boolean>>;
@@ -24,37 +23,45 @@ interface BookComponentProps {
 
 const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
   const user = JSON.parse(window.sessionStorage.getItem("user") as string);
-  const [newBookData, setNewBookData] = useState<Book>({title:"", author: "", voters:[user], id: "", postAuthorId: user.id})
+  const [newBookData, setNewBookData] = useState<Book>({
+    title: "",
+    author: "",
+    id: "",
+    postAuthorId: user.id,
+    voters: [user],
+    readers: [],
+  });
 
-  function updateBook(event: ChangeEvent<HTMLInputElement>){
-    setNewBookData((prevBookData)=>{
-        return {...prevBookData, [event.target.name]: event.target.value}
-    })
-  } 
+  function updateBook(event: ChangeEvent<HTMLInputElement>) {
+    setNewBookData((prevBookData) => {
+      return { ...prevBookData, [event.target.name]: event.target.value };
+    });
+  }
   const navigate = useNavigate();
 
   return (
     <div className="NewBookPage">
       <Nav />
       <div className="NewBook">
-        <span className="g-font s-padding-top m-padding-sides pastel-blue s-border s-shadow font-white bold text-align-center">
-          Sugira um Livro
-        </span>
-        <form className="BookComponent" onSubmit={async (event)=>{
-            try{
-                event.preventDefault();
-                await BookRepo.postBook(props.loadingSetter, newBookData);
-                setSuccess(props.successIsActiveSetter)
-                setTimeout(()=>{navigate("/home")}, 1000)
+        <span className="blue-button g-font">Sugira um Livro</span>
+        <form
+          className="BookComponent"
+          onSubmit={async (event) => {
+            try {
+              event.preventDefault();
+              await BookRepo.postBook(props.loadingSetter, newBookData);
+              setSuccess(props.successIsActiveSetter);
+              setTimeout(() => {
+                navigate("/home");
+              }, 1000);
+            } catch {
+              setError(props.errorIsActiveSetter);
             }
-            catch{
-                setError(props.errorIsActiveSetter)
-            }
-            
-        }}>
+          }}
+        >
           <input
             type="text"
-            className="Book-title s-font bold font-black s-padding-top m-padding-sides s-shadow s-border"
+            className="standard-text-input"
             name="title"
             placeholder="titulo"
             onChange={updateBook}
@@ -62,15 +69,12 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
 
           <input
             type="text"
-            className="NewBookPage-input s-font s-padding-top m-padding-sides s-shadow s-border"
+            className="standard-text-input"
             name="author"
             placeholder="autor"
             onChange={updateBook}
           />
-          <button
-            className="s-padding-top m-padding-sides s-shadow s-border bright-yellow s-font"
-            type="submit"
-          >
+          <button className="bright-yellow-button" type="submit">
             salvar
           </button>
         </form>

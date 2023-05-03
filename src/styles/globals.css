@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700&display=swap');
 :root {
   --bright-yellow: #ffef3c;
   --bright-yellow-desaturated: #fff36e;
@@ -21,6 +21,7 @@ a {
   background-color: var(--pastel-yellow);
   min-height: calc(100vh-6px);
   margin: 0;
+  font-family:'Rubik', sans-serif
 }
 body {
   display: flex;
@@ -30,14 +31,90 @@ body {
   background-color: var(--pastel-red);
   color: black;
 }
+input, textarea{
+  font-size:1em;
+  resize:horizontal;
+  max-width:100%;
+}
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*Globals=====================================================================================================*/
+/*Buttons--------------------------------------*/
+.white-button{
+  color:black;
+  border: 2px solid black;
+  padding: .3em 1em;
+  text-align: center;
+  border-radius:20px;
+  box-shadow: 3px 3px black;
+  background-color: white;
+}
+.red-button{
+  color:black;
+  border: 2px solid black;
+  padding: .3em 1em;
+  text-align: center;
+  border-radius:20px;
+  box-shadow: 3px 3px black;
+  background-color: var(--pastel-red)
+}
+.blue-button{
+  color:white;
+  border: 2px solid black;
+  padding: .3em 1em;
+  text-align: center;
+  border-radius:20px;
+  box-shadow: 3px 3px black;
+  background-color: var(--pastel-blue)
+}
+.bright-yellow-button{
+  color:black;
+  border: 2px solid black;
+  padding: .3em 1em;
+  text-align: center;
+  border-radius:20px;
+  box-shadow: 3px 3px black;
+  background-color: var(--bright-yellow)
+}
+.bright-yellow-desaturated-button{
+  color:black;
+  border: 2px solid black;
+  padding: .3em 1em;
+  text-align: center;
+  border-radius:20px;
+  box-shadow: 3px 3px black;
+  background-color: var(--bright-yellow-desaturated)
+}
+
+/*Inputs--------------------------------------*/
+.standard-text-input{
+  color:black;
+  background-color: white;
+  border-radius:20px;
+  box-shadow: 4px 4px black;
+  padding: .5em 1em
+}
+.standard-text-input::placeholder{
+  color:rgb(41, 41, 41)
+}
+
+/*Icons*/
+.ss-icon{
+  max-width:20px;
+  max-height:20px;
+}
+.s-icon{
+  max-width:30px;
+  max-height:30px;
+}
+.s-clickable-icon{
+  max-width:30px;
+  max-height:30px;
+  cursor:pointer;
+  transition: .2s;
+}
+
+.s-clickable-icon:hover{
+  transform:scale(1.2);
 }
 
 /*borders*/
@@ -140,6 +217,21 @@ body {
 .s-gap {
   gap: 5px;
 }
+.m-gap {
+  gap: 10px;
+}
+.g-gap {
+  gap:15px;
+}
+
+/*Opacity*/
+.s-opaque{
+  opacity:80%;
+}
+.m-opaque{
+  opacity:60%;
+}
+
 
 /*width and height */
 .width-100 {
@@ -183,5 +275,13 @@ body {
   }
   100% {
     transform: scale(1);
+  }
+}
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

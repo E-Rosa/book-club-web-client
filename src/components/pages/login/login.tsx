@@ -59,25 +59,25 @@ const LoginPage: FunctionComponent<LoginPageProps> = (props) => {
             placeholder="email"
             name="email"
             onChange={updateLoginData}
-            className="s-shadow s-border"
+            className="standard-text-input"
           ></input>
           <input
             type="password"
             placeholder="senha"
             name="password"
             onChange={updateLoginData}
-            className="s-shadow s-border"
+            className="standard-text-input"
           ></input>
           <button
             type="submit"
-            className="login-button s-shadow s-border bright-yellow"
+            className="bright-yellow-button"
           >
             entrar
           </button>
           <Link to="/signup">
             <button
               type="button"
-              className="signup-button s-shadow s-border bright-yellow-desaturated"
+              className="bright-yellow-desaturated-button"
             >
               cadastrar
             </button>

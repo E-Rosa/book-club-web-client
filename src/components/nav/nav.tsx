@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 interface NavProps {}
 
 const Nav: FunctionComponent<NavProps> = () => {
+  const isHomePage = window.location.href.includes("/home")
+  const isBookPostPage = window.location.href.includes("/books/post")
   const navigate = useNavigate();
   return (
     <>
@@ -15,7 +17,7 @@ const Nav: FunctionComponent<NavProps> = () => {
           <img src={logo} alt="logo" className="Nav-logo"></img>
           <button
             type="button"
-            className="s-border s-shadow pastel-red s-padding-top m-padding sides"
+            className={isHomePage ? "red-button" : "white-button"}
             onClick={() => {
                navigate("/home")
             }}
@@ -25,7 +27,7 @@ const Nav: FunctionComponent<NavProps> = () => {
           <Link to="/books/post">
             <button
               type="button"
-              className="s-border s-shadow s-padding-top m-padding sides"
+              className={isBookPostPage ? "red-button" : "white-button"}
             >
               sugerir
             </button>
@@ -35,7 +37,7 @@ const Nav: FunctionComponent<NavProps> = () => {
         <div className="logout-button-container">
           <button
             type="button"
-            className="Nav-logout-button s-border s-shadow s-padding-top bright-yellow m-padding sides"
+            className="bright-yellow-button"
             onClick={() => {
               window.sessionStorage.removeItem("user");
               window.sessionStorage.removeItem("jwt");

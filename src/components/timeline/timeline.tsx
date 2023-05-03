@@ -78,20 +78,26 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
             lidos
           </button>
         </div>
-        <div className="timeline-icons-tooltip">
-          <div className="flex align-center">
-            <img
-              src={whiteBookMark}
-              alt="book mark white"
-              className="ss-icon"
-            />
-            <span>= não lido</span>
+        {getBooksFilter == "read" && (
+          <div className="timeline-icons-tooltip">
+            <div className="flex align-center">
+              <img
+                src={whiteBookMark}
+                alt="book mark white"
+                className="ss-icon"
+              />
+              <span>= não lido</span>
+            </div>
+            <div className="flex align-center">
+              <img
+                src={blueBookMark}
+                alt="book mark blue"
+                className="ss-icon"
+              />
+              <span>= lido</span>
+            </div>
           </div>
-          <div className="flex align-center">
-            <img src={blueBookMark} alt="book mark blue" className="ss-icon" />
-            <span>= lido</span>
-          </div>
-        </div>
+        )}
       </div>
       {bookComponents()}
     </div>

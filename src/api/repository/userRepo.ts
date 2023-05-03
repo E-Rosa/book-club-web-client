@@ -63,6 +63,30 @@ class UserRepo {
       console.log("impossible to get users");
     }
   }
+  static async requestSignup(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    signUpData: SignUpData
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(
+          `${endpointURL}/api/authentication/signup/request`,
+          {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(signUpData),
+          }
+        );
+        const parsedResponse = await response.json();
+        if(response.status != 200){
+          throw new Error("pedido de cadastro falhou")
+        }
+        return parsedResponse;
+      });
+    } catch (error) {
+      throw new Error("pedido de cadastro falhou - erro de servidor")
+    }
+  }
 }
 
 export default UserRepo;

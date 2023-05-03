@@ -42,7 +42,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
             if (signUpData.password != signUpData.repeatPassword) {
               throw new Error("senhas não são identicas");
             }
-            await UserRepo.signup(props.loadingSetter, signUpData);
+            await UserRepo.requestSignup(props.loadingSetter, signUpData);
             setSuccess(props.successIsActiveSetter);
             setTimeout(() => {
               navigate("/");

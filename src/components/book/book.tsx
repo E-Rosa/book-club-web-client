@@ -11,6 +11,8 @@ import whiteHeart from "../../assets/heart-white.png";
 import redHeart from "../../assets/heart-red.png";
 import whiteBookMark from "../../assets/book-mark-white.png";
 import blueBookMark from "../../assets/book-mark-blue.png";
+import whiteFolder from "../../assets/folder-white.png";
+import yellowFolder from "../../assets/folder-yellow.png";
 import edit from "../../assets/edit.png";
 import "./book.css";
 import BookRepo from "../../api/repository/bookRepo";
@@ -22,6 +24,7 @@ interface BookComponentProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
   errorIsActiveSetter: Dispatch<SetStateAction<boolean>>;
   successIsActiveSetter: Dispatch<SetStateAction<boolean>>;
+  updatedBooksListSetter: Dispatch<SetStateAction<boolean>>;
   //domUpdateSetter: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -54,7 +57,9 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
 
   const isVoted = voterEmails.includes(user.email);
   const isRead = readerEmails.includes(user.email);
+  const isReadByClub = props.book.isRead;
   const isPostAuthor = props.book.postAuthorId == user.id;
+  const isAdmin = user.isAdmin && user.isAdmin == true ? true : false;
   const whiteHeartIcon = (
     <img
       src={whiteHeart}
@@ -95,6 +100,22 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       onClick={() => {
         setIsEditing(true);
       }}
+    ></img>
+  );
+  const whiteFolderIcon = (
+    <img
+      src={whiteFolder}
+      alt="white folder icon"
+      className="s-clickable-icon"
+      onClick={handleMarkAsReadByClub}
+    ></img>
+  );
+  const yellowFolderIcon = (
+    <img
+      src={yellowFolder}
+      alt="yellow folder icon"
+      className="s-clickable-icon"
+      onClick={handleUnmarkAsReadByClub}
     ></img>
   );
   const voterTags = (voters: User[]) => {
@@ -229,6 +250,31 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       setError(props.errorIsActiveSetter);
     }
   }
+  async function handleMarkAsReadByClub(){
+    try {
+      await BookRepo.markBookAsReadByClub(
+        props.loadingSetter,
+        props.book.id
+      );
+      setSuccess(props.successIsActiveSetter);
+      props.updatedBooksListSetter(prev=>!prev)
+    } catch (error) {
+      setError(props.errorIsActiveSetter);
+    }
+  }
+  async function handleUnmarkAsReadByClub(){
+    try {
+      await BookRepo.unmarkBookAsReadByClub(
+        props.loadingSetter,
+        props.book.id
+      );
+      setSuccess(props.successIsActiveSetter);
+      props.updatedBooksListSetter(prev=>!prev)
+    } catch (error) {
+      setError(props.errorIsActiveSetter);
+    }
+  }
+  console.log(isAdmin, isRead)
   return (
     <div className="BookComponent">
       <div className="flex justify-between width-100">
@@ -252,7 +298,11 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
           {!isEditing && voters && !isVoted && isVotable && whiteHeartIcon}
           {!isEditing && readers && isRead && isReadable && blueBookMarkIcon}
           {!isEditing && readers && !isRead && isReadable && whiteBookMarkIcon}
+          {isAdmin && !isReadByClub && whiteFolderIcon}
+          {isAdmin && isReadByClub && yellowFolderIcon}
+          
         </div>
+
       </div>
       {isEditing && (
         <textarea

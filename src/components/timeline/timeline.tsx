@@ -19,6 +19,7 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
     window.sessionStorage.getItem("user") as string
   );
   const [books, setBooks] = useState<Book[]>([]);
+  const [updatedBooksList, setUpdatedBooksList] = useState(false);
   const [getBooksFilter, setGetBooksFilter] =
     useState<GetBooksFilter>("suggested");
   useEffect(() => {
@@ -39,7 +40,7 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
           setError(props.errorIsActiveSetter);
         });
     }
-  }, [getBooksFilter]);
+  }, [getBooksFilter, updatedBooksList]);
   const bookComponents = () => {
     return books.map((book: Book) => {
       return (
@@ -49,6 +50,7 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
           loadingSetter={props.loadingSetter}
           errorIsActiveSetter={props.errorIsActiveSetter}
           successIsActiveSetter={props.successIsActiveSetter}
+          updatedBooksListSetter={setUpdatedBooksList}
         />
       );
     });

@@ -105,6 +105,9 @@ class UserRepo {
           }
         });
         const parsedResponse = await response.json();
+        if(response.status != 200){
+          throw new Error("falha ao aceitar usuário não autorizado")
+        }
         return parsedResponse;
       });
     } catch (error){
@@ -122,9 +125,13 @@ class UserRepo {
           method: "PUT",
           headers: {
             authorization: `Bearer ${SessionServices.getSessionToken()}`,
+            "Content-Type":"application/json"
           },
           body: JSON.stringify({email: userEmail})
         });
+        if(response.status != 200){
+          throw new Error("falha ao aceitar usuário não autorizado")
+        }
         const parsedResponse = await response.json();
         return parsedResponse;
       });
@@ -143,9 +150,13 @@ class UserRepo {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${SessionServices.getSessionToken()}`,
+            "Content-Type":"application/json"
           },
           body: JSON.stringify({email: userEmail})
         });
+        if(response.status != 200){
+          throw new Error("falha ao deletar usuário não autorizado")
+        }
         const parsedResponse = await response.json();
         return parsedResponse;
       });

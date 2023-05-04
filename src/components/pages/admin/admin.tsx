@@ -18,11 +18,7 @@ interface AdminProps {
 }
 
 const AdminPage: FunctionComponent<AdminProps> = (props) => {
-  useEffect(() => {
-    UserRepo.getUnauthorizedUsers(props.loadingSetter).then((users) =>
-      setUnauthorizedUsers(users)
-    );
-  }, []);
+  const [unauthorizedUsersUpdated, setUnauthorizedUsersUpdated] = useState(false);
   const [unauthorizedUsers, setUnauthorizedUsers] = useState<User[]>([]);
   const unauthorizedUserComponents = () => {
     return unauthorizedUsers.map(
@@ -32,10 +28,16 @@ const AdminPage: FunctionComponent<AdminProps> = (props) => {
           errorIsActiveSetter={props.errorIsActiveSetter}
           successIsActiveSetter={props.successIsActiveSetter}
           user={{ email: unauthorizedUser.email, name: unauthorizedUser.name }}
+          unauthorizedUsersUpdatedSetter={setUnauthorizedUsersUpdated}
         />;
       }
     );
   };
+  useEffect(() => {
+    UserRepo.getUnauthorizedUsers(props.loadingSetter).then((users) =>
+      setUnauthorizedUsers(users)
+    );
+  }, [unauthorizedUsersUpdated]);
   return (
     <>
       <Nav />

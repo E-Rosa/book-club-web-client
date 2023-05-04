@@ -20,6 +20,7 @@ interface SignupPageProps {
 }
 
 const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
+  const [message, setMessage] = useState("");
   const [signUpData, setSignUpData] = useState<SignUpData>({
     name: "",
     email: "",
@@ -44,9 +45,10 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
             }
             await UserRepo.requestSignup(props.loadingSetter, signUpData);
             setSuccess(props.successIsActiveSetter);
+            setMessage("sua conta foi solicitada e poderá ser aceita em breve.")
             setTimeout(() => {
               navigate("/");
-            }, 1000);
+            }, 4000);
           } catch (error: any) {
             setError(props.errorIsActiveSetter);
           }
@@ -80,6 +82,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = (props) => {
           name="repeatPassword"
           className="standard-text-input"
         ></input>
+        <span>{message}</span>
         <button
           type="submit"
           className="bright-yellow-button"

@@ -1,19 +1,37 @@
 import { FunctionComponent, Dispatch, SetStateAction } from "react";
 import "./signupRequest.css";
+import UserRepo from "../../api/repository/userRepo";
+import { setSuccess } from "../success/success";
+import { setError } from "../error/error";
 
 interface SignupRequestProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
   errorIsActiveSetter: Dispatch<SetStateAction<boolean>>;
   successIsActiveSetter: Dispatch<SetStateAction<boolean>>;
+  unauthorizedUsersUpdatedSetter: Dispatch<SetStateAction<boolean>>;
   user: { email: string; name: string };
 }
 
 const SignupRequest: FunctionComponent<SignupRequestProps> = (props) => {
-    function handleAcceptSignup(){
-
+    async function handleAcceptSignup(){
+      try{
+        await UserRepo.acceptUnauthorizedUser(props.loadingSetter, props.user.email)
+        setSuccess(props.successIsActiveSetter)
+        props.unauthorizedUsersUpdatedSetter((prev)=>!prev)
+      }
+      catch(error){
+        setError(props.errorIsActiveSetter)
+      }
     }
-    function handleDeclineSignup(){
-        
+    async function handleDeclineSignup(){
+      try{
+        await UserRepo.deleteUnauthorizedUser(props.loadingSetter, props.user.email)
+        props.unauthorizedUsersUpdatedSetter((prev)=>!prev)
+        setSuccess(props.successIsActiveSetter)
+      }
+      catch(error){
+        setError(props.errorIsActiveSetter)
+      }
     }
   return (
     <>

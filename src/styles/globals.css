@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;700&display=swap');
 :root {
+  --bright-green: #60c538;
   --bright-yellow: #ffef3c;
   --bright-yellow-desaturated: #fff36e;
   --pastel-yellow: #fff58a;
@@ -21,7 +22,8 @@ a {
   background-color: var(--pastel-yellow);
   min-height: calc(100vh-6px);
   margin: 0;
-  font-family:'Rubik', sans-serif
+  font-family:'Rubik', sans-serif;
+  padding-bottom:3em;
 }
 body {
   display: flex;
@@ -74,6 +76,15 @@ input, textarea{
   border-radius:20px;
   box-shadow: 3px 3px black;
   background-color: var(--bright-yellow)
+}
+.bright-green-button{
+  color:black;
+  border: 2px solid black;
+  padding: .3em 1em;
+  text-align: center;
+  border-radius:20px;
+  box-shadow: 3px 3px black;
+  background-color: var(--bright-green)
 }
 .bright-yellow-desaturated-button{
   color:black;
@@ -159,7 +170,7 @@ body {
   font-size: 1.4em;
 }
 .bold {
-  font-style: bold;
+  font-weight: bold;
 }
 .font-white {
   color: white;

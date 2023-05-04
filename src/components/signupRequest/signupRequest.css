@@ -1,0 +1,10 @@
+.SignupRequest{
+    padding:1.5em;
+    box-shadow:3px 3px black;
+    border: 2px solid black;
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+    border-radius: 20px;
+    background-color: white;
+}

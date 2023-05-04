@@ -98,7 +98,7 @@ class UserRepo {
   ) {
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
-        const response = await fetch(`${endpointURL}/signup/requests`, {
+        const response = await fetch(`${endpointURL}/api/admin/signup/requests`, {
           method: "GET",
           headers: {
             authorization: `Bearer ${SessionServices.getSessionToken()}`,
@@ -118,7 +118,7 @@ class UserRepo {
   ) {
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
-        const response = await fetch(`${endpointURL}/signup/requests`, {
+        const response = await fetch(`${endpointURL}/api/admin/signup/requests`, {
           method: "PUT",
           headers: {
             authorization: `Bearer ${SessionServices.getSessionToken()}`,
@@ -139,7 +139,7 @@ class UserRepo {
   ) {
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
-        const response = await fetch(`${endpointURL}/signup/requests`, {
+        const response = await fetch(`${endpointURL}/api/admin/signup/requests`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${SessionServices.getSessionToken()}`,

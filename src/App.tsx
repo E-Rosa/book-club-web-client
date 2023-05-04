@@ -10,6 +10,7 @@ import Error from "./components/error/error";
 import SignupPage from "./components/pages/signup/signup";
 import Success from "./components/success/success";
 import NewBookPage from "./components/pages/postBook/postBook";
+import AdminPage from "./components/pages/admin/admin";
 
 function App() {
   //loading
@@ -61,6 +62,16 @@ function App() {
           path="/books/post"
           element={
             <NewBookPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        ></Route>
+                <Route
+          path="/admin"
+          element={
+            <AdminPage
               loadingSetter={setIsLoading}
               errorIsActiveSetter={setIsErrorActive}
               successIsActiveSetter={setIsSuccessActive}

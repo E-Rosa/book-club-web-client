@@ -274,7 +274,6 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       setError(props.errorIsActiveSetter);
     }
   }
-  console.log(isAdmin, isRead)
   return (
     <div className="BookComponent">
       <div className="flex justify-between width-100">

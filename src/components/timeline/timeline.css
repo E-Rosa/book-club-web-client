@@ -1,6 +1,8 @@
 .Timeline{
     display:flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap:2em;
 }
 .timeline-header{
@@ -15,4 +17,17 @@
     border-radius:20px;
     display:flex;
     gap:1em;
+}
+.timeline-page-icons{
+    display:flex;
+    gap:.5em;
+    max-width:100%;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+}
+.timeline-page-icons *{
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }

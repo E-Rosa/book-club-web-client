@@ -26,10 +26,57 @@ class BookRepo {
       throw new Error("Não foi possivel carregar livros - erro de servidor");
     }
   }
+  static async getSuggestedBooksPaginated(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    skip: number
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(
+          `${endpointURL}/api/books/suggested/${skip}`,
+          {
+            method: "GET",
+            headers: {
+              authorization: `Bearer ${SessionServices.getSessionToken()}`,
+            },
+          }
+        );
+        const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel carregar livros");
+        }
+        return parsedResponse;
+      });
+    } catch (error) {
+      throw new Error("Não foi possivel carregar livros - erro de servidor");
+    }
+  }
   static async getReadBooks(loadingSetter: Dispatch<SetStateAction<boolean>>) {
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
         const response = await fetch(`${endpointURL}/api/books/read`, {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${SessionServices.getSessionToken()}`,
+          },
+        });
+        const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel carregar livros");
+        }
+        return parsedResponse;
+      });
+    } catch (error) {
+      throw new Error("Não foi possivel carregar livros - erro de servidor");
+    }
+  }
+  static async getReadBooksPaginated(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    skip: number
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(`${endpointURL}/api/books/read/${skip}`, {
           method: "GET",
           headers: {
             authorization: `Bearer ${SessionServices.getSessionToken()}`,
@@ -179,7 +226,7 @@ class BookRepo {
           method: "PUT",
           headers: {
             authorization: `Bearer ${SessionServices.getSessionToken()}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(book),
         });
@@ -199,14 +246,17 @@ class BookRepo {
   ) {
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
-        const response = await fetch(`${endpointURL}/api/admin/books/markAsReadByClub`, {
-          method: "PUT",
-          headers: {
-            authorization: `Bearer ${SessionServices.getSessionToken()}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({id: bookId}),
-        });
+        const response = await fetch(
+          `${endpointURL}/api/admin/books/markAsReadByClub`,
+          {
+            method: "PUT",
+            headers: {
+              authorization: `Bearer ${SessionServices.getSessionToken()}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: bookId }),
+          }
+        );
         const parsedResponse = await response.json();
         if (response.status != 200) {
           throw new Error("Não foi possivel marcar livro como lido pelo clube");
@@ -214,7 +264,9 @@ class BookRepo {
         return parsedResponse;
       });
     } catch (error) {
-      throw new Error("Não foi possivel marcar livro como lido pelo clube - erro de servidor");
+      throw new Error(
+        "Não foi possivel marcar livro como lido pelo clube - erro de servidor"
+      );
     }
   }
   static async unmarkBookAsReadByClub(
@@ -223,14 +275,17 @@ class BookRepo {
   ) {
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
-        const response = await fetch(`${endpointURL}/api/admin/books/unmarkAsReadByClub`, {
-          method: "PUT",
-          headers: {
-            authorization: `Bearer ${SessionServices.getSessionToken()}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({id: bookId}),
-        });
+        const response = await fetch(
+          `${endpointURL}/api/admin/books/unmarkAsReadByClub`,
+          {
+            method: "PUT",
+            headers: {
+              authorization: `Bearer ${SessionServices.getSessionToken()}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: bookId }),
+          }
+        );
         const parsedResponse = await response.json();
         if (response.status != 200) {
           throw new Error("Não foi possivel marcar livro como lido pelo clube");
@@ -238,7 +293,9 @@ class BookRepo {
         return parsedResponse;
       });
     } catch (error) {
-      throw new Error("Não foi possivel marcar livro como lido pelo clube - erro de servidor");
+      throw new Error(
+        "Não foi possivel marcar livro como lido pelo clube - erro de servidor"
+      );
     }
   }
 }

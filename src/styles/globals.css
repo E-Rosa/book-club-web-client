@@ -95,6 +95,25 @@ input, textarea{
   box-shadow: 3px 3px black;
   background-color: var(--bright-yellow-desaturated)
 }
+.red-pagination-button{
+  box-shadow: 3px 3px black;
+  background-color: var(--pastel-red);
+  border-radius:100%;
+  width:3em;
+  height:3em;
+  border: 2px solid black;
+  color: white;
+}
+.white-pagination-button{
+  box-shadow: 3px 3px black;
+  background-color: white;
+  border-radius:100%;
+  width:3em;
+  height:3em;
+  border: 2px solid black;
+  color: black
+}
+
 
 /*Inputs--------------------------------------*/
 .standard-text-input{

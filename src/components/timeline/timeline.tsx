@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, MouseEvent, useEffect, useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import BookRepo from "../../api/repository/bookRepo";
 import "./timeline.css";
@@ -22,25 +22,30 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
   const [updatedBooksList, setUpdatedBooksList] = useState(false);
   const [getBooksFilter, setGetBooksFilter] =
     useState<GetBooksFilter>("suggested");
+  const [suggestedBooksCount, setSuggestedBooksCount] = useState(0);
+  const [readBooksCount, setReadBooksCount] = useState(0);
+  const [skip, setSkip] = useState(0);
   useEffect(() => {
     if (getBooksFilter == "suggested") {
-      BookRepo.getSuggestedBooks(props.loadingSetter)
-        .then((books) => {
-          setBooks(books);
+      BookRepo.getSuggestedBooksPaginated(props.loadingSetter, skip)
+        .then((response: { books: Book[]; count: number }) => {
+          setBooks(response.books);
+          setSuggestedBooksCount(response.count);
         })
         .catch(() => {
           setError(props.errorIsActiveSetter);
         });
     } else if (getBooksFilter == "read") {
-      BookRepo.getReadBooks(props.loadingSetter)
-        .then((books: Book[]) => {
-          setBooks(books);
+      BookRepo.getReadBooksPaginated(props.loadingSetter, skip)
+        .then((response: { books: Book[]; count: number }) => {
+          setBooks(response.books);
+          setReadBooksCount(response.count);
         })
         .catch(() => {
           setError(props.errorIsActiveSetter);
         });
     }
-  }, [getBooksFilter, updatedBooksList]);
+  }, [getBooksFilter, updatedBooksList, skip]);
   const bookComponents = () => {
     return books.map((book: Book) => {
       return (
@@ -55,6 +60,49 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
       );
     });
   };
+  const paginationNumberButtons = () => {
+    const suggestedBooksPages = Array.from(
+      Array(Math.ceil(suggestedBooksCount / 10))
+    );
+    const readBooksPages = Array.from(Array(Math.ceil(readBooksCount / 10)));
+    const getPaginationNumberButtonsByCount = (pages: undefined[]) => {
+      return pages.map((undf, index) => {
+        if (skip / 10 == index || (skip == 0 && index == 0)) {
+          return (
+            <button
+              className="red-pagination-button"
+              id={`${index + 1}`}
+              onClick={handleChangePage}
+              key={index}
+            >
+              {index + 1}
+            </button>
+          );
+        } else {
+          return (
+            <button
+              className="white-pagination-button"
+              id={`${index + 1}`}
+              key={index}
+              onClick={handleChangePage}
+            >
+              {index + 1}
+            </button>
+          );
+        }
+      });
+    };
+    if (getBooksFilter == "suggested") {
+      return getPaginationNumberButtonsByCount(suggestedBooksPages);
+    } else if (getBooksFilter == "read") {
+      return getPaginationNumberButtonsByCount(readBooksPages);
+    }
+  };
+  function handleChangePage(event: MouseEvent<HTMLButtonElement>) {
+    const pageClicked = parseInt(event.currentTarget.id);
+    const amountToSkip = pageClicked * 10 - 10;
+    setSkip(amountToSkip);
+  }
   return (
     <div className="Timeline">
       <div className="timeline-header">
@@ -102,6 +150,7 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
         )}
       </div>
       {bookComponents()}
+      <div className="timeline-page-icons">{paginationNumberButtons()}</div>
     </div>
   );
 };

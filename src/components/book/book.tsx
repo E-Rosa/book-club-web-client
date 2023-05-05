@@ -38,6 +38,7 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
   const [isVotable, setIsVotable] = useState(true);
   const [isReadable, setIsReadable] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [isReadingDescription, setIsReadingDescription] = useState(false);
   const [editedBookData, setEditedBookData] = useState<Book>(props.book);
   const [bookData, setBookData] = useState<Book>(props.book);
   const user = JSON.parse(window.sessionStorage.getItem("user") as string);
@@ -244,32 +245,26 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
         props.loadingSetter,
         editedBookData
       );
-      setBookData(editedBookData)
+      setBookData(editedBookData);
       setSuccess(props.successIsActiveSetter);
     } catch (error) {
       setError(props.errorIsActiveSetter);
     }
   }
-  async function handleMarkAsReadByClub(){
+  async function handleMarkAsReadByClub() {
     try {
-      await BookRepo.markBookAsReadByClub(
-        props.loadingSetter,
-        props.book.id
-      );
+      await BookRepo.markBookAsReadByClub(props.loadingSetter, props.book.id);
       setSuccess(props.successIsActiveSetter);
-      props.updatedBooksListSetter(prev=>!prev)
+      props.updatedBooksListSetter((prev) => !prev);
     } catch (error) {
       setError(props.errorIsActiveSetter);
     }
   }
-  async function handleUnmarkAsReadByClub(){
+  async function handleUnmarkAsReadByClub() {
     try {
-      await BookRepo.unmarkBookAsReadByClub(
-        props.loadingSetter,
-        props.book.id
-      );
+      await BookRepo.unmarkBookAsReadByClub(props.loadingSetter, props.book.id);
       setSuccess(props.successIsActiveSetter);
-      props.updatedBooksListSetter(prev=>!prev)
+      props.updatedBooksListSetter((prev) => !prev);
     } catch (error) {
       setError(props.errorIsActiveSetter);
     }
@@ -299,9 +294,7 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
           {!isEditing && readers && !isRead && isReadable && whiteBookMarkIcon}
           {isAdmin && !isReadByClub && whiteFolderIcon}
           {isAdmin && isReadByClub && yellowFolderIcon}
-          
         </div>
-
       </div>
       {isEditing && (
         <textarea
@@ -312,10 +305,45 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
           onChange={handleBookDataChange}
         />
       )}
-      {!isEditing && <span>{bookData.author}</span>}
+      {!isEditing && (
+        <span className="book-author-text">{bookData.author}</span>
+      )}
+      {isEditing && (
+        <textarea
+          className="book-description-input"
+          name="description"
+          defaultValue={bookData.description}
+          placeholder="descrição"
+          onChange={handleBookDataChange}
+        />
+      )}
+      {!isReadingDescription && bookData.description != "" && (
+        <div className="description-container">
+          <button
+            className="toggle-description-button"
+            onClick={() => setIsReadingDescription(true)}
+          >
+            descrição
+          </button>
+        </div>
+      )}
+      {isReadingDescription && (
+        <div className="description-container">
+          <span className="book-description-text">{bookData.description}</span>
+          <button
+            className="close-description-button"
+            onClick={() => setIsReadingDescription(false)}
+          >
+            ver menos
+          </button>
+        </div>
+      )}
 
       {isEditing && (
-        <button className="vote-tags-container bright-yellow-button" onClick={submitEditedBook}>
+        <button
+          className="vote-tags-container bright-yellow-button"
+          onClick={submitEditedBook}
+        >
           salvar
         </button>
       )}

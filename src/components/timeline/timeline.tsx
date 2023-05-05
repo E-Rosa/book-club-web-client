@@ -15,9 +15,6 @@ interface TimelineProps {
 }
 
 const Timeline: FunctionComponent<TimelineProps> = (props) => {
-  const user: User = JSON.parse(
-    window.sessionStorage.getItem("user") as string
-  );
   const [books, setBooks] = useState<Book[]>([]);
   const [updatedBooksList, setUpdatedBooksList] = useState(false);
   const [getBooksFilter, setGetBooksFilter] =
@@ -25,27 +22,10 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
   const [suggestedBooksCount, setSuggestedBooksCount] = useState(0);
   const [readBooksCount, setReadBooksCount] = useState(0);
   const [skip, setSkip] = useState(0);
-  useEffect(() => {
-    if (getBooksFilter == "suggested") {
-      BookRepo.getSuggestedBooksPaginated(props.loadingSetter, skip)
-        .then((response: { books: Book[]; count: number }) => {
-          setBooks(response.books);
-          setSuggestedBooksCount(response.count);
-        })
-        .catch(() => {
-          setError(props.errorIsActiveSetter);
-        });
-    } else if (getBooksFilter == "read") {
-      BookRepo.getReadBooksPaginated(props.loadingSetter, skip)
-        .then((response: { books: Book[]; count: number }) => {
-          setBooks(response.books);
-          setReadBooksCount(response.count);
-        })
-        .catch(() => {
-          setError(props.errorIsActiveSetter);
-        });
-    }
-  }, [getBooksFilter, updatedBooksList, skip]);
+  const user: User = JSON.parse(
+    window.sessionStorage.getItem("user") as string
+  );
+  console.log(books)
   const bookComponents = () => {
     return books.map((book: Book) => {
       return (
@@ -103,6 +83,27 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
     const amountToSkip = pageClicked * 10 - 10;
     setSkip(amountToSkip);
   }
+  useEffect(() => {
+    if (getBooksFilter == "suggested") {
+      BookRepo.getSuggestedBooksPaginated(props.loadingSetter, skip)
+        .then((response: { books: Book[]; count: number }) => {
+          setBooks(response.books);
+          setSuggestedBooksCount(response.count);
+        })
+        .catch(() => {
+          setError(props.errorIsActiveSetter);
+        });
+    } else if (getBooksFilter == "read") {
+      BookRepo.getReadBooksPaginated(props.loadingSetter, skip)
+        .then((response: { books: Book[]; count: number }) => {
+          setBooks(response.books);
+          setReadBooksCount(response.count);
+        })
+        .catch(() => {
+          setError(props.errorIsActiveSetter);
+        });
+    }
+  }, [getBooksFilter, updatedBooksList, skip]);
   return (
     <div className="Timeline">
       <div className="timeline-header">

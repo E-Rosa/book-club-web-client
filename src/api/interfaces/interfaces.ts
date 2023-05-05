@@ -25,6 +25,7 @@ interface Book{
   voters?: User[];
   readers?: User[];
   isRead: boolean;
+  description: string;
 }
 
 

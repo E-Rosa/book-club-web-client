@@ -287,7 +287,7 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
           />
         )}
         <div className="book-component-icons-container">
-          {!isEditing && isPostAuthor && editIcon}
+          {(!isEditing && isPostAuthor && editIcon) || (isAdmin && editIcon)}
           {!isEditing && voters && isVoted && isVotable && redHeartIcon}
           {!isEditing && voters && !isVoted && isVotable && whiteHeartIcon}
           {!isEditing && readers && isRead && isReadable && blueBookMarkIcon}

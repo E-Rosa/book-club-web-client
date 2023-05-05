@@ -30,6 +30,7 @@ class BookRepo {
     loadingSetter: Dispatch<SetStateAction<boolean>>,
     skip: number
   ) {
+    console.log(endpointURL)
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
         const response = await fetch(

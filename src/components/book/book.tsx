@@ -241,7 +241,7 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
   async function submitEditedBook() {
     try {
       setIsEditing(false);
-      const editedBook = await BookRepo.updateBook(
+      await BookRepo.updateBook(
         props.loadingSetter,
         editedBookData
       );

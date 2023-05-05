@@ -50,7 +50,7 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
       Array(Math.ceil(personalSuggestedBookCount / 10))
     );
     const getPaginationNumberButtonsByCount = (pages: undefined[]) => {
-      return pages.map((undf, index) => {
+      return pages.map((_, index) => {
         if (skip / 10 == index || (skip == 0 && index == 0)) {
           return (
             <button

@@ -30,6 +30,8 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
     postAuthorId: user.id,
     voters: [user],
     readers: [],
+    isRead: false,
+    description: ""
   });
 
   function updateBook(event: ChangeEvent<HTMLInputElement>) {

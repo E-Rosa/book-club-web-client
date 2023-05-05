@@ -21,11 +21,12 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
     useState<GetBooksFilter>("suggested");
   const [suggestedBooksCount, setSuggestedBooksCount] = useState(0);
   const [readBooksCount, setReadBooksCount] = useState(0);
+  const [personalSuggestedBookCount, setPersonalSuggestedBookCount] =
+    useState(0);
   const [skip, setSkip] = useState(0);
   const user: User = JSON.parse(
     window.sessionStorage.getItem("user") as string
   );
-  console.log(books)
   const bookComponents = () => {
     return books.map((book: Book) => {
       return (
@@ -45,6 +46,9 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
       Array(Math.ceil(suggestedBooksCount / 10))
     );
     const readBooksPages = Array.from(Array(Math.ceil(readBooksCount / 10)));
+    const personalSuggestedBookPages = Array.from(
+      Array(Math.ceil(personalSuggestedBookCount / 10))
+    );
     const getPaginationNumberButtonsByCount = (pages: undefined[]) => {
       return pages.map((undf, index) => {
         if (skip / 10 == index || (skip == 0 && index == 0)) {
@@ -76,6 +80,8 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
       return getPaginationNumberButtonsByCount(suggestedBooksPages);
     } else if (getBooksFilter == "read") {
       return getPaginationNumberButtonsByCount(readBooksPages);
+    } else if (getBooksFilter == "my-suggestions") {
+      return getPaginationNumberButtonsByCount(personalSuggestedBookPages);
     }
   };
   function handleChangePage(event: MouseEvent<HTMLButtonElement>) {
@@ -98,6 +104,20 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
         .then((response: { books: Book[]; count: number }) => {
           setBooks(response.books);
           setReadBooksCount(response.count);
+        })
+        .catch(() => {
+          setError(props.errorIsActiveSetter);
+        });
+    } else if (getBooksFilter == "my-suggestions") {
+      BookRepo.getPersonalSuggestionsPaginated(
+        props.loadingSetter,
+        skip,
+        user.id
+      )
+        .then((response: { books: Book[]; count: number }) => {
+          console.log(response)
+          setBooks(response.books);
+          setPersonalSuggestedBookCount(response.count);
         })
         .catch(() => {
           setError(props.errorIsActiveSetter);
@@ -127,6 +147,17 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
             }}
           >
             lidos
+          </button>
+          <button
+            type="button"
+            className={
+              getBooksFilter == "my-suggestions" ? "red-button" : "white-button"
+            }
+            onClick={() => {
+              setGetBooksFilter("my-suggestions");
+            }}
+          >
+            minhas sugestões
           </button>
         </div>
         {getBooksFilter == "read" && (

@@ -30,6 +30,6 @@ interface Book{
 
 
 
-type GetBooksFilter = "suggested" | "read" 
+type GetBooksFilter = "suggested" | "read" | "my-suggestions"
 
 export type { SignUpData, LoginData, User, Book, GetBooksFilter };

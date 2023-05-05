@@ -92,6 +92,32 @@ class BookRepo {
       throw new Error("Não foi possivel carregar livros - erro de servidor");
     }
   }
+  static async getPersonalSuggestionsPaginated(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    skip: number,
+    userId: string
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(
+          `${endpointURL}/api/books/${userId}/suggested/${skip}`,
+          {
+            method: "GET",
+            headers: {
+              authorization: `Bearer ${SessionServices.getSessionToken()}`,
+            },
+          }
+        );
+        const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel carregar livros");
+        }
+        return parsedResponse;
+      });
+    } catch (error) {
+      throw new Error("Não foi possivel carregar livros - erro de servidor");
+    }
+  }
   static async voteOnBook(
     loadingSetter: Dispatch<SetStateAction<boolean>>,
     bookId: string

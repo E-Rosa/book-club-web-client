@@ -34,7 +34,7 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
     description: ""
   });
 
-  function updateBook(event: ChangeEvent<HTMLInputElement>) {
+  function updateBook(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setNewBookData((prevBookData) => {
       return { ...prevBookData, [event.target.name]: event.target.value };
     });
@@ -74,6 +74,12 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
             className="standard-text-input"
             name="author"
             placeholder="autor"
+            onChange={updateBook}
+          />
+          <textarea
+            className="standard-text-input description-input"
+            name="description"
+            placeholder="descrição"
             onChange={updateBook}
           />
           <button className="bright-yellow-button" type="submit">

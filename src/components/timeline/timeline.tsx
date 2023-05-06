@@ -87,6 +87,7 @@ const Timeline: FunctionComponent<TimelineProps> = (props) => {
   function handleChangePage(event: MouseEvent<HTMLButtonElement>) {
     const pageClicked = parseInt(event.currentTarget.id);
     const amountToSkip = pageClicked * 10 - 10;
+    window.scrollTo(0,0)
     setSkip(amountToSkip);
   }
   useEffect(() => {

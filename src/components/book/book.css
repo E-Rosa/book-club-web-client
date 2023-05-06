@@ -12,6 +12,8 @@
   border-radius: 20px;
   box-shadow: 6px 6px black;
   width: 100%;
+  transition:.3s ease;
+  animation: popIn .3s ease;
 }
 @media screen and (max-width: 400px) {
   .BookComponent {

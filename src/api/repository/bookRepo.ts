@@ -325,6 +325,33 @@ class BookRepo {
       );
     }
   }
+  static async deleteBook(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    bookId: string
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(
+          `${endpointURL}/api/admin/books/${bookId}`,
+          {
+            method: "DELETE",
+            headers: {
+              authorization: `Bearer ${SessionServices.getSessionToken()}`
+            },
+          }
+        );
+        const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel deletar livro");
+        }
+        return parsedResponse;
+      });
+    } catch (error) {
+      throw new Error(
+        "Não foi possivel deletar livro - erro de servidor"
+      );
+    }
+  }
 }
 
 export default BookRepo;

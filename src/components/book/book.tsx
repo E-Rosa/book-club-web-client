@@ -14,6 +14,7 @@ import blueBookMark from "../../assets/book-mark-blue.png";
 import whiteFolder from "../../assets/folder-white.png";
 import yellowFolder from "../../assets/folder-yellow.png";
 import edit from "../../assets/edit.png";
+import deleteImg from "../../assets/delete.png";
 import "./book.css";
 import BookRepo from "../../api/repository/bookRepo";
 import { setError } from "../error/error";
@@ -117,6 +118,14 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       alt="yellow folder icon"
       className="s-clickable-icon"
       onClick={handleUnmarkAsReadByClub}
+    ></img>
+  );
+  const deleteIcon = (
+    <img
+      src={deleteImg}
+      alt="delete icon"
+      className="s-clickable-icon"
+      onClick={handleDeleteBook}
     ></img>
   );
   const voterTags = (voters: User[]) => {
@@ -269,6 +278,15 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       setError(props.errorIsActiveSetter);
     }
   }
+  async function handleDeleteBook() {
+    try {
+      await BookRepo.deleteBook(props.loadingSetter, props.book.id);
+      setSuccess(props.successIsActiveSetter);
+      props.updatedBooksListSetter((prev) => !prev);
+    } catch (error) {
+      setError(props.errorIsActiveSetter);
+    }
+  }
   return (
     <div className="BookComponent">
       <div className="flex justify-between width-100">
@@ -294,6 +312,7 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
           {!isEditing && readers && !isRead && isReadable && whiteBookMarkIcon}
           {isAdmin && !isReadByClub && whiteFolderIcon}
           {isAdmin && isReadByClub && yellowFolderIcon}
+          {isAdmin && deleteIcon}
         </div>
       </div>
       {isEditing && (

@@ -20,6 +20,7 @@ import whiteBookMark from "../../../assets/book-mark-white.png";
 import MeetingRepo from "../../../api/repository/meetingRepo";
 import MeetingComponent from "../../meeting/meeting";
 import NewBookPage from "../../pages/books/postBook/postBook";
+import PostMeeting from "../../pages/meetings/postMeeting/postMeeting";
 
 interface TimelineFeedProps {
   feedName: feedNames;
@@ -113,9 +114,7 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
           />
         );
       } else if (props.feedName.includes("meetings")) {
-        return timelineItems.map((timelineItem) => {
-          return <MeetingComponent meetingData={timelineItem as Meeting} />;
-        });
+        return <MeetingComponent meetingData={timelineItem as Meeting} />;
       }
     });
   };
@@ -193,7 +192,13 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
           successIsActiveSetter={props.successIsActiveSetter}
         />
       )}
-      {props.feedName == "suggest-meeting" && <div>suggest meeting</div>}
+      {props.feedName == "suggest-meeting" && (
+        <PostMeeting
+          loadingSetter={props.loadingSetter}
+          errorIsActiveSetter={props.errorIsActiveSetter}
+          successIsActiveSetter={props.successIsActiveSetter}
+        />
+      )}
     </>
   );
 };

@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import RepositoryServices from "../services/repositoryServices";
 import { endpointURL } from "../../config/db";
 import SessionServices from "../services/sessionServices";
+import { Meeting } from "../interfaces/interfaces";
 
 class MeetingRepo {
   static async getMeetingsPaginated(
@@ -24,6 +25,30 @@ class MeetingRepo {
         });
       } catch (error) {
         throw new Error("Não foi possivel carregar reuniões - erro de servidor");
+      }
+  }
+  static async postMeeting(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    meetingData: Meeting
+  ){
+    try {
+        return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+          const response = await fetch(`${endpointURL}/api/meetings/`, {
+            method: "POST",
+            headers: {
+              authorization: `Bearer ${SessionServices.getSessionToken()}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(meetingData)
+          });
+          const parsedResponse = await response.json();
+          if (response.status != 200) {
+            throw new Error("Não foi possivel postar reuniões");
+          }
+          return parsedResponse;
+        });
+      } catch (error) {
+        throw new Error("Não foi possivel postar reuniões - erro de servidor");
       }
   }
 }

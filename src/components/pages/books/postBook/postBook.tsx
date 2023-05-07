@@ -1,4 +1,4 @@
-import "../../book/book.css";
+import "../books.css";
 import "./postBook.css";
 import {
   FunctionComponent,
@@ -7,11 +7,10 @@ import {
   useState,
   ChangeEvent,
 } from "react";
-import BookRepo from "../../../api/repository/bookRepo";
-import { setError } from "../../error/error";
-import { setSuccess } from "../../success/success";
-import Nav from "../../nav/nav";
-import { Book } from "../../../api/interfaces/interfaces";
+import BookRepo from "../../../../api/repository/bookRepo";
+import { setError } from "../../../error/error";
+import { setSuccess } from "../../../success/success";
+import { Book } from "../../../../api/interfaces/interfaces";
 import { useNavigate } from "react-router-dom";
 
 interface BookComponentProps {
@@ -43,7 +42,6 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
 
   return (
     <div className="NewBookPage">
-      <Nav />
       <div className="NewBook">
         <span className="blue-button g-font">Sugira um Livro</span>
         <form
@@ -53,9 +51,6 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
               event.preventDefault();
               await BookRepo.postBook(props.loadingSetter, newBookData);
               setSuccess(props.successIsActiveSetter);
-              setTimeout(() => {
-                navigate("/home");
-              }, 1000);
             } catch {
               setError(props.errorIsActiveSetter);
             }

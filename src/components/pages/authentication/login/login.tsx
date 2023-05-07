@@ -5,12 +5,12 @@ import {
   SetStateAction,
 } from "react";
 import "./login.css";
-import logo from "../../../assets/book-club-web-logo-unique.png";
-import { LoginData } from "../../../api/interfaces/interfaces";
+import logo from "../../../../assets/book-club-web-logo-unique.png";
+import { LoginData } from "../../../../api/interfaces/interfaces";
 import { useState } from "react";
-import { setSuccess } from "../../success/success";
-import { setError } from "../../error/error";
-import UserRepo from "../../../api/repository/userRepo";
+import { setSuccess } from "../../../success/success";
+import { setError } from "../../../error/error";
+import UserRepo from "../../../../api/repository/userRepo";
 import { Link, useNavigate } from "react-router-dom";
 
 interface LoginPageProps {
@@ -47,7 +47,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = (props) => {
               window.sessionStorage.setItem("user", JSON.stringify(user));
               setSuccess(props.successIsActiveSetter);
               setTimeout(() => {
-                navigate("/home")
+                navigate("/books")
               }, 1000);
             } catch (error: any) {
               setError(props.errorIsActiveSetter);

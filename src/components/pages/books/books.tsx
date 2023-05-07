@@ -1,26 +1,24 @@
 import { FunctionComponent } from "react";
-import "./home.css";
+import "./books.css";
 import { Dispatch, SetStateAction } from "react";
-import Nav from "../../nav/nav";
 import Timeline from "../../timeline/timeline";
 
-interface HomepageProps {
+interface BookPageProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
   errorIsActiveSetter: Dispatch<SetStateAction<boolean>>;
   successIsActiveSetter: Dispatch<SetStateAction<boolean>>;
 }
 
-const Homepage: FunctionComponent<HomepageProps> = (props) => {
+const BookPage: FunctionComponent<BookPageProps> = (props) => {
   return (
     <>
-          
-      <Nav />
-      <div className="Homepage">
-      <div className="Homepage-content">
+      <div className="BookPage">
+      <div className="BookPage-content">
         <Timeline
           loadingSetter={props.loadingSetter}
           errorIsActiveSetter={props.errorIsActiveSetter}
           successIsActiveSetter={props.successIsActiveSetter}
+          timelineType="books"
         />
       </div>
     </div>
@@ -29,4 +27,4 @@ const Homepage: FunctionComponent<HomepageProps> = (props) => {
   );
 };
 
-export default Homepage;
+export default BookPage;

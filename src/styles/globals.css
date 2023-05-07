@@ -6,6 +6,7 @@
   --pastel-yellow: #fff58a;
   --pastel-red: #d53636;
   --pastel-blue: #4d51b4;
+  --pastel-green: #57aa36;
   --dark-grey: #1d1d1d;
 }
 
@@ -216,6 +217,9 @@ body {
 }
 .dark-grey {
   background-color: var(--dark-grey);
+}
+.pastel-green{
+  background-color: var(--pastel-green);
 }
 
 /*flex boxes*/

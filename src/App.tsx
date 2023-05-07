@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./components/pages/login/login";
+import LoginPage from "./components/pages/authentication/login/login";
 import "./App.css";
 import "./styles/globals.css";
 import "./index.css";
 import Loader from "./components/loader/loader";
-import Homepage from "./components/pages/home/home";
+import BookPage from "./components/pages/books/books";
 import Error from "./components/error/error";
-import SignupPage from "./components/pages/signup/signup";
+import SignupPage from "./components/pages/authentication/signup/signup";
 import Success from "./components/success/success";
-import NewBookPage from "./components/pages/postBook/postBook";
+import NewBookPage from "./components/pages/books/postBook/postBook";
 import AdminPage from "./components/pages/admin/admin";
+import Nav from "./components/nav/nav";
+import MeetingsPage from "./components/pages/meetings/meetings";
 
 function App() {
   //loading
@@ -27,19 +29,13 @@ function App() {
       <Loader isLoading={isLoading} />
       <Error isActive={isErrorActive} isActiveSetter={setIsErrorActive} />
       <Success isActive={isSuccessActive} />
+      {(window.location.href.includes("/books") ||
+        window.location.href.includes("/admin") ||
+        window.location.href.includes("/meetings")
+        ) && <Nav />}
       <Routes>
         <Route
-          path="/home"
-          element={
-            <Homepage
-              loadingSetter={setIsLoading}
-              errorIsActiveSetter={setIsErrorActive}
-              successIsActiveSetter={setIsSuccessActive}
-            />
-          }
-        ></Route>
-        <Route
-          path="/"
+          path="*"
           element={
             <LoginPage
               loadingSetter={setIsLoading}
@@ -47,11 +43,21 @@ function App() {
               successIsActiveSetter={setIsSuccessActive}
             />
           }
-        ></Route>
+        />
         <Route
           path="/signup"
           element={
             <SignupPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        ></Route>
+        <Route
+          path="/books"
+          element={
+            <BookPage
               loadingSetter={setIsLoading}
               errorIsActiveSetter={setIsErrorActive}
               successIsActiveSetter={setIsSuccessActive}
@@ -68,7 +74,27 @@ function App() {
             />
           }
         ></Route>
-                <Route
+        <Route
+          path="/meetings"
+          element={
+            <MeetingsPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        ></Route>
+        {/*         <Route
+          path="/meetings/post"
+          element={
+            <NewMeetingPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        ></Route> */}
+        <Route
           path="/admin"
           element={
             <AdminPage
@@ -78,16 +104,6 @@ function App() {
             />
           }
         ></Route>
-        <Route
-          path="*"
-          element={
-            <LoginPage
-              loadingSetter={setIsLoading}
-              errorIsActiveSetter={setIsErrorActive}
-              successIsActiveSetter={setIsSuccessActive}
-            />
-          }
-        />
       </Routes>
     </>
   );

@@ -3,17 +3,14 @@ import logo from "../../assets/book-club-web-logo-horizontal.png";
 import "./nav.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { User } from "../../api/interfaces/interfaces";
 
 interface NavProps {}
 
 const Nav: FunctionComponent<NavProps> = () => {
-  const isHomePage = window.location.href.includes("/home");
-  const isBookPostPage = window.location.href.includes("/books/post");
+  const isBooksPage = window.location.href.includes("/books");
+  const isMeetingsPage = window.location.href.includes("/meetings");
   const isAdminPage = window.location.href.includes("/admin");
-  const user = JSON.parse(
-    window.sessionStorage.getItem("user") as string
-  ) as User;
+  const user = JSON.parse(window.sessionStorage.getItem("user") as string);
   const navigate = useNavigate();
   return (
     <>
@@ -22,19 +19,19 @@ const Nav: FunctionComponent<NavProps> = () => {
           <img src={logo} alt="logo" className="Nav-logo"></img>
           <button
             type="button"
-            className={isHomePage ? "red-button" : "white-button"}
+            className={isBooksPage ? "red-button" : "white-button"}
             onClick={() => {
-              navigate("/home");
+              navigate("/books");
             }}
           >
-            votar
+            livros
           </button>
-          <Link to="/books/post">
+          <Link to="/meetings">
             <button
               type="button"
-              className={isBookPostPage ? "red-button" : "white-button"}
+              className={isMeetingsPage ? "red-button" : "white-button"}
             >
-              sugerir
+              reuniões
             </button>
           </Link>
           {user.isAdmin && (

@@ -5,12 +5,12 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { SignUpData } from "../../../api/interfaces/interfaces";
-import UserRepo from "../../../api/repository/userRepo";
-import { setError } from "../../error/error";
+import { SignUpData } from "../../../../api/interfaces/interfaces";
+import UserRepo from "../../../../api/repository/userRepo";
+import { setError } from "../../../error/error";
 import "./signup.css";
-import logo from "../../../assets/book-club-web-logo-unique.png";
-import { setSuccess } from "../../success/success";
+import logo from "../../../../assets/book-club-web-logo-unique.png";
+import { setSuccess } from "../../../success/success";
 import { Link, useNavigate } from "react-router-dom";
 
 interface SignupPageProps {

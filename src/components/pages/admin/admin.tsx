@@ -8,7 +8,6 @@ import {
 import UserRepo from "../../../api/repository/userRepo";
 import { User } from "../../../api/interfaces/interfaces";
 import SignupRequest from "../../signupRequest/signupRequest";
-import Nav from "../../nav/nav";
 import "./admin.css"
 
 interface AdminProps {
@@ -40,7 +39,6 @@ const AdminPage: FunctionComponent<AdminProps> = (props) => {
   }, [unauthorizedUsersUpdated]);
   return (
     <>
-      <Nav />
       <div className="AdminPage">
         <div className="admin-nav">
           <button type="button" className="red-button">

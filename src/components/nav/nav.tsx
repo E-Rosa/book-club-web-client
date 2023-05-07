@@ -34,7 +34,7 @@ const Nav: FunctionComponent<NavProps> = () => {
               reuniões
             </button>
           </Link>
-          {user.isAdmin && (
+          {user != null && user.isAdmin && (
             <Link to="/admin">
               <button
                 type="button"
@@ -47,17 +47,18 @@ const Nav: FunctionComponent<NavProps> = () => {
         </div>
 
         <div className="logout-button-container">
+          <Link to="/">
           <button
             type="button"
             className="bright-yellow-button Nav-logout-button"
             onClick={() => {
               window.sessionStorage.removeItem("user");
               window.sessionStorage.removeItem("jwt");
-              navigate("/");
             }}
           >
             sair
           </button>
+          </Link>
         </div>
       </div>
     </>

@@ -40,7 +40,7 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
     ? useState<Book[] | Meeting[]>([])
     : useState<Meeting[] | Book[]>([]);
   const [skip, setSkip] = useState(0);
-  const [updatedTimelineItems, setUpdatedBooksList] = useState(false);
+  const [updatedTimelineItems, setUpdatedTimelineItems] = useState(false);
 
   useEffect(() => {
     if (props.feedName == "suggested-books") {
@@ -88,7 +88,7 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
     } else if (props.feedName == "scheduled-meetings") {
       MeetingRepo.getMeetingsPaginated(props.loadingSetter, skip)
         .then((response: { meetings: Meeting[]; count: number }) => {
-          console.log(response);
+
           setTimelineItems(
             response.meetings.filter((mt) => new Date(mt.date) >= new Date())
           );
@@ -110,11 +110,20 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
             loadingSetter={props.loadingSetter}
             errorIsActiveSetter={props.errorIsActiveSetter}
             successIsActiveSetter={props.successIsActiveSetter}
-            updatedBooksListSetter={setUpdatedBooksList}
+            updatedBooksListSetter={setUpdatedTimelineItems}
           />
         );
       } else if (props.feedName.includes("meetings")) {
-        return <MeetingComponent meetingData={timelineItem as Meeting} />;
+        return (
+          <MeetingComponent
+            meetingData={timelineItem as Meeting}
+            loadingSetter={props.loadingSetter}
+            errorIsActiveSetter={props.errorIsActiveSetter}
+            successIsActiveSetter={props.successIsActiveSetter}
+            updateMeetingsListSetter={setUpdatedTimelineItems}
+            key={timelineItem.id}
+          />
+        );
       }
     });
   };

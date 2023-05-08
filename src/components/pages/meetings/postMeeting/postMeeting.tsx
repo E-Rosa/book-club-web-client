@@ -62,7 +62,7 @@ const PostMeeting: FunctionComponent<PostMeetingProps> = (props) => {
               type="text"
               className="standard-text-input"
               name="bookTitle"
-              placeholder="livro"
+              placeholder="livro a discutir"
               onChange={updateMeetingData}
             />
 

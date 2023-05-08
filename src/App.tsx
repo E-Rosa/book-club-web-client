@@ -9,7 +9,6 @@ import BookPage from "./components/pages/books/books";
 import Error from "./components/error/error";
 import SignupPage from "./components/pages/authentication/signup/signup";
 import Success from "./components/success/success";
-import NewBookPage from "./components/pages/books/postBook/postBook";
 import AdminPage from "./components/pages/admin/admin";
 import Nav from "./components/nav/nav";
 import MeetingsPage from "./components/pages/meetings/meetings";
@@ -29,10 +28,7 @@ function App() {
       <Loader isLoading={isLoading} />
       <Error isActive={isErrorActive} isActiveSetter={setIsErrorActive} />
       <Success isActive={isSuccessActive} />
-      {(window.location.href.includes("/books") ||
-        window.location.href.includes("/admin") ||
-        window.location.href.includes("/meetings")
-        ) && <Nav />}
+      <Nav />
       <Routes>
         <Route
           path="*"
@@ -65,16 +61,6 @@ function App() {
           }
         ></Route>
         <Route
-          path="/books/post"
-          element={
-            <NewBookPage
-              loadingSetter={setIsLoading}
-              errorIsActiveSetter={setIsErrorActive}
-              successIsActiveSetter={setIsSuccessActive}
-            />
-          }
-        ></Route>
-        <Route
           path="/meetings"
           element={
             <MeetingsPage
@@ -84,16 +70,6 @@ function App() {
             />
           }
         ></Route>
-        {/*         <Route
-          path="/meetings/post"
-          element={
-            <NewMeetingPage
-              loadingSetter={setIsLoading}
-              errorIsActiveSetter={setIsErrorActive}
-              successIsActiveSetter={setIsSuccessActive}
-            />
-          }
-        ></Route> */}
         <Route
           path="/admin"
           element={

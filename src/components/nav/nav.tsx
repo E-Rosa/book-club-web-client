@@ -14,53 +14,57 @@ const Nav: FunctionComponent<NavProps> = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="Nav">
-        <div className="Nav-first-items-container">
-          <img src={logo} alt="logo" className="Nav-logo"></img>
-          <button
-            type="button"
-            className={isBooksPage ? "red-button" : "white-button"}
-            onClick={() => {
-              navigate("/books");
-            }}
-          >
-            livros
-          </button>
-          <Link to="/meetings">
+      {(window.location.href.includes("/books") ||
+        window.location.href.includes("/admin") ||
+        window.location.href.includes("/meetings")) && (
+        <div className="Nav">
+          <div className="Nav-first-items-container">
+            <img src={logo} alt="logo" className="Nav-logo"></img>
             <button
               type="button"
-              className={isMeetingsPage ? "red-button" : "white-button"}
+              className={isBooksPage ? "red-button" : "white-button"}
+              onClick={() => {
+                navigate("/books");
+              }}
             >
-              reuniões
+              livros
             </button>
-          </Link>
-          {user != null && user.isAdmin && (
-            <Link to="/admin">
+            <Link to="/meetings">
               <button
                 type="button"
-                className={isAdminPage ? "red-button" : "white-button"}
+                className={isMeetingsPage ? "red-button" : "white-button"}
               >
-                admin
+                reuniões
               </button>
             </Link>
-          )}
-        </div>
+            {user != null && user.isAdmin && (
+              <Link to="/admin">
+                <button
+                  type="button"
+                  className={isAdminPage ? "red-button" : "white-button"}
+                >
+                  admin
+                </button>
+              </Link>
+            )}
+          </div>
 
-        <div className="logout-button-container">
-          <Link to="/">
-          <button
-            type="button"
-            className="bright-yellow-button Nav-logout-button"
-            onClick={() => {
-              window.sessionStorage.removeItem("user");
-              window.sessionStorage.removeItem("jwt");
-            }}
-          >
-            sair
-          </button>
-          </Link>
+          <div className="logout-button-container">
+            <Link to="/">
+              <button
+                type="button"
+                className="bright-yellow-button Nav-logout-button"
+                onClick={() => {
+                  window.sessionStorage.removeItem("user");
+                  window.sessionStorage.removeItem("jwt");
+                }}
+              >
+                sair
+              </button>
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

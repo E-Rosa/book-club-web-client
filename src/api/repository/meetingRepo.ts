@@ -75,6 +75,28 @@ class MeetingRepo {
       throw new Error("Não foi possivel postar reuniões - erro de servidor");
     }
   }
+  static async deleteMeeting(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    meetingId: string
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(`${endpointURL}/api/meetings/${meetingId}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${SessionServices.getSessionToken()}`,
+          },
+        });
+        const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel deletar reunião");
+        }
+        return parsedResponse;
+      });
+    } catch (error) {
+      throw new Error("Não foi possivel deletar reunião- erro de servidor");
+    }
+  }
 }
 
 export default MeetingRepo;

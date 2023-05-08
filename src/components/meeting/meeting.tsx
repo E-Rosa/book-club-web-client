@@ -1,9 +1,16 @@
-import { FunctionComponent, Dispatch, SetStateAction, useState, ChangeEvent } from "react";
+import {
+  FunctionComponent,
+  Dispatch,
+  SetStateAction,
+  useState,
+  ChangeEvent,
+} from "react";
 import "../book/book.css";
 import "./meeting.css";
 import { Meeting, User } from "../../api/interfaces/interfaces";
 import ParsingService from "../../api/services/parsingServices";
 import editImg from "../../assets/edit.png";
+import deleteImg from "../../assets/delete.png";
 import MeetingRepo from "../../api/repository/meetingRepo";
 import { setSuccess } from "../success/success";
 import { setError } from "../error/error";
@@ -19,6 +26,7 @@ const MeetingComponent: FunctionComponent<MeetingComponentProps> = (props) => {
   const user = JSON.parse(
     window.sessionStorage.getItem("user") as string
   ) as User;
+  const isAdmin = user != null && user.isAdmin ? true : false;
   const isMeetingHost = user.id == props.meetingData.hostId;
   const editIcon = (
     <img
@@ -29,24 +37,47 @@ const MeetingComponent: FunctionComponent<MeetingComponentProps> = (props) => {
       }}
     />
   );
+  const deleteIcon = (
+    <img
+      src={deleteImg}
+      className="s-clickable-icon"
+      onClick={async () => {
+        try {
+          await MeetingRepo.deleteMeeting(
+            props.loadingSetter,
+            props.meetingData.id
+          );
+          setSuccess(props.successIsActiveSetter);
+          props.updateMeetingsListSetter((prev) => !prev);
+        } catch (error) {
+          setError(props.errorIsActiveSetter);
+        }
+      }}
+    />
+  );
   const [newMeetingData, setNewMeetingData] = useState<Meeting>({
-    ...props.meetingData
-  })
+    ...props.meetingData,
+  });
   const [isEditing, setIsEditing] = useState(false);
-  function updateNewMeeting(event: ChangeEvent<HTMLInputElement>){
-    setNewMeetingData((prevMeetingData)=>{
-      return {...prevMeetingData, [event.target.name]: event.target.value}
-    })
+  function updateNewMeeting(event: ChangeEvent<HTMLInputElement>) {
+    setNewMeetingData((prevMeetingData) => {
+      return { ...prevMeetingData, [event.target.name]: event.target.value };
+    });
   }
   return (
     <div className="BookComponent">
       {!isEditing && (
         <>
           <div className="MeetingComponent-icon-and-title-container">
-            <h3 className="Book-title g-font bold font-black">
-              {props.meetingData.bookTitle}
-            </h3>
-            {isMeetingHost && editIcon}
+            <div>
+              <h3 className="Book-title g-font bold font-black">
+                {props.meetingData.bookTitle}
+              </h3>
+            </div>
+            <div className="flex s-gap">
+              {isMeetingHost && editIcon}
+              {isAdmin && deleteIcon}
+            </div>
           </div>
 
           <span className="book-author-text">
@@ -65,16 +96,14 @@ const MeetingComponent: FunctionComponent<MeetingComponentProps> = (props) => {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            try{  
-              const response = await MeetingRepo.putMeeting(props.loadingSetter, newMeetingData)
-              setSuccess(props.successIsActiveSetter)
-              setIsEditing(false)
-              props.updateMeetingsListSetter((prev)=>!prev)
+            try {
+              await MeetingRepo.putMeeting(props.loadingSetter, newMeetingData);
+              setSuccess(props.successIsActiveSetter);
+              setIsEditing(false);
+              props.updateMeetingsListSetter((prev) => !prev);
+            } catch (error) {
+              setError(props.errorIsActiveSetter);
             }
-            catch (error){
-              setError(props.errorIsActiveSetter)
-            } 
-            
           }}
           className="flex column s-gap"
         >

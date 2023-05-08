@@ -11,7 +11,6 @@ import BookRepo from "../../../../api/repository/bookRepo";
 import { setError } from "../../../error/error";
 import { setSuccess } from "../../../success/success";
 import { Book } from "../../../../api/interfaces/interfaces";
-import { useNavigate } from "react-router-dom";
 
 interface BookComponentProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;
@@ -38,7 +37,6 @@ const NewBookPage: FunctionComponent<BookComponentProps> = (props) => {
       return { ...prevBookData, [event.target.name]: event.target.value };
     });
   }
-  const navigate = useNavigate();
 
   return (
     <div className="NewBookPage">

@@ -1,8 +1,8 @@
 import { FunctionComponent, Dispatch, SetStateAction } from "react";
 import "./signupRequest.css";
-import UserRepo from "../../api/repository/userRepo";
-import { setSuccess } from "../success/success";
-import { setError } from "../error/error";
+import UserRepo from "../../../../api/repository/userRepo";
+import { setSuccess } from "../../../success/success";
+import { setError } from "../../../error/error";
 
 interface SignupRequestProps {
   loadingSetter: Dispatch<SetStateAction<boolean>>;

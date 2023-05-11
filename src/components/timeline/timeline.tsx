@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import "./timeline.css";
-import { feedNames } from "../../api/interfaces/interfaces";
+import { feedNames, readBooksFeedNames } from "../../api/interfaces/interfaces";
 import TimelineNav from "./timelineNav/timelineNav";
 import TimelineFeed from "./timelineFeed/timelineFeed";
 
@@ -15,8 +15,8 @@ interface TimelineProps {
 const Timeline: FunctionComponent<TimelineProps> = (props) => {
   const [navActiveItem, setNavActiveItem] =
     props.timelineType == "books" ?
-    useState<feedNames>("suggested-books") :
-    useState<feedNames>("scheduled-meetings")
+    useState<feedNames | readBooksFeedNames>("suggested-books") :
+    useState<feedNames | readBooksFeedNames>("scheduled-meetings")
   return (
     //responsibility: display the correct Timeline between "books" and "meetings" using TimelineNav and TimelineFeed
     <div className="Timeline">

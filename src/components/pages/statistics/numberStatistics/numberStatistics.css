@@ -1,0 +1,20 @@
+.statistics-numbers-container{
+    display:flex;
+    gap:1em;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .statistics-number-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:.6em;
+  }
+  .statistic-number{
+    padding:1em;
+    background-color:white;
+    border-radius:15px;
+    border: 2px solid black;
+    font-size:2em;
+    font-weight: bold;
+  }

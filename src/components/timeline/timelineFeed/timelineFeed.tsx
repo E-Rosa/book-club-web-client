@@ -14,16 +14,17 @@ import {
   feedNames,
 } from "../../../api/interfaces/interfaces";
 import BookRepo from "../../../api/repository/bookRepo";
-import BookComponent from "../../book/book";
+import BookComponent from "../../pages/books/book/book";
 import blueBookMark from "../../../assets/book-mark-blue.png";
 import whiteBookMark from "../../../assets/book-mark-white.png";
 import MeetingRepo from "../../../api/repository/meetingRepo";
-import MeetingComponent from "../../meeting/meeting";
+import MeetingComponent from "../../pages/meetings/meeting/meeting";
 import NewBookPage from "../../pages/books/postBook/postBook";
 import PostMeeting from "../../pages/meetings/postMeeting/postMeeting";
+import { readBooksFeedNames } from "../../../api/interfaces/interfaces";
 
 interface TimelineFeedProps {
-  feedName: feedNames;
+  feedName: feedNames | readBooksFeedNames;
   loadingSetter: Dispatch<SetStateAction<boolean>>;
   errorIsActiveSetter: Dispatch<SetStateAction<boolean>>;
   successIsActiveSetter: Dispatch<SetStateAction<boolean>>;
@@ -35,11 +36,14 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
   const user: User = JSON.parse(
     window.sessionStorage.getItem("user") as string
   );
+  //pagination
   const [timelineItemsCount, setTimelineItemsCount] = useState(0);
+  const [skip, setSkip] = useState(0);
+
+  //timeline items
   const [timelineItems, setTimelineItems] = props.feedName.includes("books")
     ? useState<Book[] | Meeting[]>([])
     : useState<Meeting[] | Book[]>([]);
-  const [skip, setSkip] = useState(0);
   const [updatedTimelineItems, setUpdatedTimelineItems] = useState(false);
 
   useEffect(() => {
@@ -88,7 +92,6 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
     } else if (props.feedName == "scheduled-meetings") {
       MeetingRepo.getMeetingsPaginated(props.loadingSetter, skip)
         .then((response: { meetings: Meeting[]; count: number }) => {
-
           setTimelineItems(
             response.meetings.filter((mt) => new Date(mt.date) >= new Date())
           );
@@ -167,34 +170,18 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
   }
   return (
     <>
-      {props.feedName != "suggest-book" &&
-        props.feedName != "suggest-meeting" && (
-          <div className="Timeline">
-            {props.feedName == "read-books" && (
-              <div className="timeline-icons-tooltip">
-                <div className="flex align-center">
-                  <img
-                    src={whiteBookMark}
-                    alt="book mark white"
-                    className="ss-icon"
-                  />
-                  <span>= não lido</span>
-                </div>
-                <div className="flex align-center">
-                  <img
-                    src={blueBookMark}
-                    alt="book mark blue"
-                    className="ss-icon"
-                  />
-                  <span>= lido</span>
-                </div>
-              </div>
-            )}
-            {timelineComponents()}
-            <div className="flex s-gap wrap">{paginationNumberButtons()}</div>
-          </div>
-        )}
+      {(props.feedName == "past-meetings" ||
+        props.feedName == "scheduled-meetings" ||
+        props.feedName == "suggested-books" ||
+        props.feedName == "user-books") && (
+        //itemsLIst and paginationNumbers
+        <div className="Timeline">
+          {timelineComponents()}
+          <div className="flex s-gap wrap">{paginationNumberButtons()}</div>
+        </div>
+      )}
       {props.feedName == "suggest-book" && (
+        //form for posting
         <NewBookPage
           loadingSetter={props.loadingSetter}
           errorIsActiveSetter={props.errorIsActiveSetter}
@@ -202,11 +189,35 @@ const TimelineFeed: FunctionComponent<TimelineFeedProps> = (props) => {
         />
       )}
       {props.feedName == "suggest-meeting" && (
+        //form for posting
         <PostMeeting
           loadingSetter={props.loadingSetter}
           errorIsActiveSetter={props.errorIsActiveSetter}
           successIsActiveSetter={props.successIsActiveSetter}
         />
+      )}
+      {props.feedName == "read-books" && (
+        <>
+          <div className="timeline-icons-tooltip">
+            <div className="flex align-center">
+              <img
+                src={whiteBookMark}
+                alt="book mark white"
+                className="ss-icon"
+              />
+              <span>= não lido</span>
+            </div>
+            <div className="flex align-center">
+              <img
+                src={blueBookMark}
+                alt="book mark blue"
+                className="ss-icon"
+              />
+              <span>= lido</span>
+            </div>
+          </div>
+          {timelineComponents()}
+        </>
       )}
     </>
   );

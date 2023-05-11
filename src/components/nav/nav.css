@@ -13,10 +13,12 @@
     margin-bottom:2em;
     max-width:calc(1280px);
     flex-wrap: wrap;
+    z-index:1000;
 }
 .Nav-first-items-container{
     display:flex;
     align-items: center;
+    flex-wrap: wrap;
     gap:10px
 }
 .Nav-logout-button{

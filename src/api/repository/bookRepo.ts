@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import RepositoryServices from "../services/repositoryServices";
 import { endpointURL } from "../../config/db";
 import SessionServices from "../services/sessionServices";
-import { Book } from "../interfaces/interfaces";
+import { Book, BookMetadata } from "../interfaces/interfaces";
 
 class BookRepo {
   static async getSuggestedBooks(
@@ -30,7 +30,7 @@ class BookRepo {
     loadingSetter: Dispatch<SetStateAction<boolean>>,
     skip: number
   ) {
-    console.log(endpointURL)
+    console.log(endpointURL);
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
         const response = await fetch(
@@ -193,6 +193,31 @@ class BookRepo {
       throw new Error("Não foi possivel sugerir livro - erro de servidor");
     }
   }
+  static async postBookMetadata(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    book: BookMetadata,
+    bookId: string
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(`${endpointURL}/api/books/metadata/${bookId}`, {
+          method: "PUT",
+          headers: {
+            authorization: `Bearer ${SessionServices.getSessionToken()}`,
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(book),
+        });
+        const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel sugerir metadados do livro");
+        }
+        return parsedResponse;
+      });
+    } catch (error) {
+      throw new Error("Não foi possivel sugerir metadados do livro - erro de servidor");
+    }
+  }
   static async readBook(
     loadingSetter: Dispatch<SetStateAction<boolean>>,
     bookId: string
@@ -336,7 +361,7 @@ class BookRepo {
           {
             method: "DELETE",
             headers: {
-              authorization: `Bearer ${SessionServices.getSessionToken()}`
+              authorization: `Bearer ${SessionServices.getSessionToken()}`,
             },
           }
         );
@@ -347,8 +372,54 @@ class BookRepo {
         return parsedResponse;
       });
     } catch (error) {
+      throw new Error("Não foi possivel deletar livro - erro de servidor");
+    }
+  }
+  static async getBookStatistics(
+    loadingSetter: Dispatch<SetStateAction<boolean>>
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(`${endpointURL}/api/books/statistics`, {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${SessionServices.getSessionToken()}`,
+          },
+        });
+        const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel carregar estatisticas");
+        }
+        return parsedResponse;
+      });
+    } catch (error) {
       throw new Error(
-        "Não foi possivel deletar livro - erro de servidor"
+        "Não foi possivel carregar estatisticas - erro de servidor"
+      );
+    }
+  }
+  static async updateBookStatistics(
+    loadingSetter: Dispatch<SetStateAction<boolean>>
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(`${endpointURL}/api/books/statistics`, {
+          method: "PUT",
+          headers: {
+            authorization: `Bearer ${SessionServices.getSessionToken()}`,
+          },
+        });
+        //const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel carregar estatisticas");
+        }
+        loadingSetter(false)
+        //return parsedResponse;
+      });
+      
+    } catch (error) {
+      throw new Error(
+        "Não foi possivel carregar estatisticas - erro de servidor"
       );
     }
   }

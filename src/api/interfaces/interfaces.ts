@@ -38,6 +38,11 @@ interface Meeting {
   participants?: User[];
 }
 
+interface BarChartData {
+  name: string,
+  value: number,
+}
+
 type feedNames =
   | "suggested-books"
   | "read-books"
@@ -47,4 +52,45 @@ type feedNames =
   | "suggest-book"
   | "suggest-meeting";
 
-export type { SignUpData, LoginData, User, Book, feedNames, Meeting };
+type readBooksFeedNames =
+| "list"
+| "statistics"
+
+interface BookStatistics {
+  totalBooks: number;
+  totalPagesRead: number;
+  avaragePagesPerBook: number;
+  bookCountByCentury: BookCountByCentury[];
+  bookCountByGender: BookCountByGender[];
+  bookCountByTag: BookCountByTag[];
+  bookCountByAuthorNationality: BookCountByAuthorNationality[];
+}
+
+interface BookCountByCentury {
+  name: number;
+  value: number;
+}
+interface BookCountByGender {
+  name: string;
+  value: number;
+}
+interface BookCountByTag {
+  name: string;
+  value: number;
+}
+interface BookCountByAuthorNationality {
+  name: string;
+  value: number;
+}
+interface BookMetadata{
+  year: number;
+  pages: number;
+  authorNationality: string;
+  authorGender: string;
+  tags: Tag[]
+}
+interface Tag{
+  tagName: string;
+}
+
+export type { BookMetadata, BarChartData, SignUpData, LoginData, User, Book, feedNames, Meeting, readBooksFeedNames, BookStatistics };

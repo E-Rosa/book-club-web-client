@@ -10,13 +10,15 @@ const Nav: FunctionComponent<NavProps> = () => {
   const isBooksPage = window.location.href.includes("/books");
   const isMeetingsPage = window.location.href.includes("/meetings");
   const isAdminPage = window.location.href.includes("/admin");
+  const isStatisticsPage = window.location.href.includes("/statistics");
   const user = JSON.parse(window.sessionStorage.getItem("user") as string);
   const navigate = useNavigate();
   return (
     <>
       {(window.location.href.includes("/books") ||
         window.location.href.includes("/admin") ||
-        window.location.href.includes("/meetings")) && (
+        window.location.href.includes("/meetings") ||
+        window.location.href.includes("/statistics")) && (
         <div className="Nav">
           <div className="Nav-first-items-container">
             <img src={logo} alt="logo" className="Nav-logo"></img>
@@ -37,6 +39,14 @@ const Nav: FunctionComponent<NavProps> = () => {
                 reuniões
               </button>
             </Link>
+            <Link to="/statistics">
+              <button
+                type="button"
+                className={isStatisticsPage ? "red-button" : "white-button"}
+              >
+                estatísticas
+              </button>
+            </Link>
             {user != null && user.isAdmin && (
               <Link to="/admin">
                 <button
@@ -47,9 +57,6 @@ const Nav: FunctionComponent<NavProps> = () => {
                 </button>
               </Link>
             )}
-          </div>
-
-          <div className="logout-button-container">
             <Link to="/">
               <button
                 type="button"
@@ -63,6 +70,8 @@ const Nav: FunctionComponent<NavProps> = () => {
               </button>
             </Link>
           </div>
+
+          <div className="logout-button-container"></div>
         </div>
       )}
     </>

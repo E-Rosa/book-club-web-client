@@ -1,10 +1,10 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
-import { feedNames } from "../../../api/interfaces/interfaces";
+import { feedNames, readBooksFeedNames } from "../../../api/interfaces/interfaces";
 import "./timelineNav.css";
 interface TimelineNavProps {
-  navItems: { domName: string; name: feedNames }[];
+  navItems: { domName: string; name: feedNames | readBooksFeedNames }[];
   activeItemName: string;
-  setActiveItemName: Dispatch<SetStateAction<feedNames>>;
+  setActiveItemName: Dispatch<SetStateAction<feedNames | readBooksFeedNames>>;
 }
 const TimelineNav: FunctionComponent<TimelineNavProps> = (props) => {
   //responsibility: display a navbar with X items and highlight the selected option

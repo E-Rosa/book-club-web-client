@@ -12,6 +12,7 @@ import Success from "./components/success/success";
 import AdminPage from "./components/pages/admin/admin";
 import Nav from "./components/nav/nav";
 import MeetingsPage from "./components/pages/meetings/meetings";
+import StatisticsPage from "./components/pages/statistics/statistics";
 
 function App() {
   //loading
@@ -64,6 +65,16 @@ function App() {
           path="/meetings"
           element={
             <MeetingsPage
+              loadingSetter={setIsLoading}
+              errorIsActiveSetter={setIsErrorActive}
+              successIsActiveSetter={setIsSuccessActive}
+            />
+          }
+        ></Route>
+                <Route
+          path="/statistics"
+          element={
+            <StatisticsPage
               loadingSetter={setIsLoading}
               errorIsActiveSetter={setIsErrorActive}
               successIsActiveSetter={setIsSuccessActive}

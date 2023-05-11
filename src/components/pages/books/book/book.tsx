@@ -6,19 +6,20 @@ import {
   useEffect,
   ChangeEvent,
 } from "react";
-import { Book, User } from "../../api/interfaces/interfaces";
-import whiteHeart from "../../assets/heart-white.png";
-import redHeart from "../../assets/heart-red.png";
-import whiteBookMark from "../../assets/book-mark-white.png";
-import blueBookMark from "../../assets/book-mark-blue.png";
-import whiteFolder from "../../assets/folder-white.png";
-import yellowFolder from "../../assets/folder-yellow.png";
-import edit from "../../assets/edit.png";
-import deleteImg from "../../assets/delete.png";
+import { Book, User } from "../../../../api/interfaces/interfaces";
+import whiteHeart from "../../../../assets/heart-white.png";
+import redHeart from "../../../../assets/heart-red.png";
+import whiteBookMark from "../../../../assets/book-mark-white.png";
+import blueBookMark from "../../../../assets/book-mark-blue.png";
+import whiteFolder from "../../../../assets/folder-white.png";
+import yellowFolder from "../../../../assets/folder-yellow.png";
+import edit from "../../../../assets/edit.png";
+import deleteImg from "../../../../assets/delete.png";
+import addMetadataImg from "../../../../assets/add.png"
 import "./book.css";
-import BookRepo from "../../api/repository/bookRepo";
-import { setError } from "../error/error";
-import { setSuccess } from "../success/success";
+import BookRepo from "../../../../api/repository/bookRepo";
+import { setError } from "../../../error/error";
+import { setSuccess } from "../../../success/success";
 
 interface BookComponentProps {
   book: Book;
@@ -126,6 +127,14 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       alt="delete icon"
       className="s-clickable-icon"
       onClick={handleDeleteBook}
+    ></img>
+  );
+  const addMetadataIcon = (
+    <img
+      src={addMetadataImg}
+      alt="add icon"
+      className="s-clickable-icon"
+      onClick={()=>{}}
     ></img>
   );
   const voterTags = (voters: User[]) => {
@@ -313,6 +322,7 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
           {isAdmin && !isReadByClub && whiteFolderIcon}
           {isAdmin && isReadByClub && yellowFolderIcon}
           {isAdmin && deleteIcon}
+          {isAdmin && isReadByClub && addMetadataIcon}
         </div>
       </div>
       {isEditing && (

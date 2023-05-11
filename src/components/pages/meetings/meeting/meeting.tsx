@@ -5,15 +5,15 @@ import {
   useState,
   ChangeEvent,
 } from "react";
-import "../book/book.css";
+import "../../books/books.css"
 import "./meeting.css";
-import { Meeting, User } from "../../api/interfaces/interfaces";
-import ParsingService from "../../api/services/parsingServices";
-import editImg from "../../assets/edit.png";
-import deleteImg from "../../assets/delete.png";
-import MeetingRepo from "../../api/repository/meetingRepo";
-import { setSuccess } from "../success/success";
-import { setError } from "../error/error";
+import { Meeting, User } from "../../../../api/interfaces/interfaces";
+import ParsingService from "../../../../api/services/parsingServices";
+import editImg from "../../../../assets/edit.png";
+import deleteImg from "../../../../assets/delete.png";
+import MeetingRepo from "../../../../api/repository/meetingRepo";
+import { setSuccess } from "../../../success/success";
+import { setError } from "../../../error/error";
 
 interface MeetingComponentProps {
   meetingData: Meeting;

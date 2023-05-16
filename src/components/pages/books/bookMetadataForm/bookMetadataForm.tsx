@@ -58,7 +58,15 @@ const BookMetadataFormComponent: FunctionComponent<BookMetadataFormProps> = (
       event.preventDefault();
       await BookRepo.postBookMetadata(
         props.loadingSetter,
-        newBookMetadata as BookMetadata,
+        {
+          authorGender: newBookMetadata.authorGender,
+          authorNationality: newBookMetadata.authorNationality,
+          pages: newBookMetadata.pages,
+          year: newBookMetadata.year,
+          tags: tagsList.map((tag) => {
+            return { name: tag, id: "" };
+          }),
+        },
         props.bookData.id
       );
       await BookRepo.postTags(props.loadingSetter, tagsList);
@@ -114,7 +122,10 @@ const BookMetadataFormComponent: FunctionComponent<BookMetadataFormProps> = (
         </form>
       )}
       {updateMetadata && (
-        <form onSubmit={upsertMetadata} className="BookMetadataForm flex column m-gap">
+        <form
+          onSubmit={upsertMetadata}
+          className="BookMetadataForm flex column m-gap"
+        >
           <input
             required
             type="text"

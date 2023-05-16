@@ -5,7 +5,6 @@ import {
   useState,
   useEffect,
   ChangeEvent,
-  useContext,
 } from "react";
 import {
   Book,
@@ -26,7 +25,6 @@ import BookRepo from "../../../../api/repository/bookRepo";
 import { setError } from "../../../error/error";
 import { setSuccess } from "../../../success/success";
 import PostBookMetadata from "../bookMetadataForm/bookMetadataForm";
-import { UserMessageContext } from "../../../../App";
 
 interface BookComponentProps {
   book: Book & { BookMetadata: BookMetadata };
@@ -55,6 +53,7 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
     Book & { BookMetadata: BookMetadata }
   >(props.book);
   const [bookData, setBookData] = useState<Book & { BookMetadata: BookMetadata }>(props.book);
+  console.log(bookData)
   const user = JSON.parse(window.sessionStorage.getItem("user") as string);
   const voterEmails =
     voters != undefined
@@ -414,3 +413,4 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
 };
 
 export default BookComponent;
+ 

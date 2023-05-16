@@ -193,6 +193,31 @@ class BookRepo {
       throw new Error("Não foi possivel sugerir livro - erro de servidor");
     }
   }
+  static async postTags(
+    loadingSetter: Dispatch<SetStateAction<boolean>>,
+    tags: string[]
+  ) {
+    try {
+      return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
+        const response = await fetch(`${endpointURL}/api/books/metadata/tags`, {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${SessionServices.getSessionToken()}`,
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({tags: tags}),
+        });
+        //const parsedResponse = await response.json();
+        if (response.status != 200) {
+          throw new Error("Não foi possivel criar tag");
+        }
+        return "not null"
+        //return parsedResponse;
+      });
+    } catch (error) {
+      throw new Error("Não foi possivel criar tag - erro de servidor");
+    }
+  }
   static async postBookMetadata(
     loadingSetter: Dispatch<SetStateAction<boolean>>,
     book: BookMetadata,

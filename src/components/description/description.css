@@ -1,0 +1,11 @@
+.toggle-description-button {
+  padding: 0;
+  border: 0;
+  color: var(--pastel-red);
+}
+.close-description-button {
+  padding: 0;
+  border: 0;
+  color: var(--pastel-red);
+  margin-left: 10px;
+}

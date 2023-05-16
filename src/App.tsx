@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./components/pages/authentication/login/login";
 import "./App.css";
@@ -6,15 +6,22 @@ import "./styles/globals.css";
 import "./index.css";
 import Loader from "./components/loader/loader";
 import BookPage from "./components/pages/books/books";
-import Error from "./components/error/error";
+import Error, { setError } from "./components/error/error";
 import SignupPage from "./components/pages/authentication/signup/signup";
-import Success from "./components/success/success";
+import Success, { setSuccess } from "./components/success/success";
 import AdminPage from "./components/pages/admin/admin";
 import Nav from "./components/nav/nav";
 import MeetingsPage from "./components/pages/meetings/meetings";
 import StatisticsPage from "./components/pages/statistics/statistics";
 
+const UserMessageContext = createContext({
+  success: ()=>{},
+  error: ()=>{},
+  loading: (value: boolean)=>{console.log(value)}
+})
+
 function App() {
+
   //loading
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,6 +33,13 @@ function App() {
 
   return (
     <>
+    <UserMessageContext.Provider value={
+      {
+        success: ()=>{setSuccess(setIsSuccessActive)},
+        error: ()=>{setError(setIsErrorActive)},
+        loading: (value: boolean)=>{setIsLoading(value)}
+    }
+    }>
       <Loader isLoading={isLoading} />
       <Error isActive={isErrorActive} isActiveSetter={setIsErrorActive} />
       <Success isActive={isSuccessActive} />
@@ -92,8 +106,10 @@ function App() {
           }
         ></Route>
       </Routes>
+      </UserMessageContext.Provider>
     </>
   );
 }
 
 export default App;
+export{ UserMessageContext}

@@ -24,6 +24,7 @@ interface Book {
   title: string;
   voters?: User[];
   readers?: User[];
+  metadata?: BookMetadata;
   isRead: boolean;
   description: string;
 }
@@ -39,8 +40,8 @@ interface Meeting {
 }
 
 interface BarChartData {
-  name: string,
-  value: number,
+  name: string;
+  value: number;
 }
 
 type feedNames =
@@ -52,9 +53,7 @@ type feedNames =
   | "suggest-book"
   | "suggest-meeting";
 
-type readBooksFeedNames =
-| "list"
-| "statistics"
+type readBooksFeedNames = "list" | "statistics";
 
 interface BookStatistics {
   totalBooks: number;
@@ -82,15 +81,31 @@ interface BookCountByAuthorNationality {
   name: string;
   value: number;
 }
-interface BookMetadata{
+interface BookMetadata {
   year: number;
   pages: number;
   authorNationality: string;
   authorGender: string;
-  tags: Tag[]
+  tags: Tag[];
 }
-interface Tag{
-  tagName: string;
+interface Tag {
+  name: string;
+  id: string;
 }
 
-export type { BookMetadata, BarChartData, SignUpData, LoginData, User, Book, feedNames, Meeting, readBooksFeedNames, BookStatistics };
+type TagColors = "white" | "blue" | "green" | "red";
+
+export type {
+  BookMetadata,
+  BarChartData,
+  SignUpData,
+  LoginData,
+  User,
+  Book,
+  feedNames,
+  Meeting,
+  readBooksFeedNames,
+  BookStatistics,
+  Tag,
+  TagColors,
+};

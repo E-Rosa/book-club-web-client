@@ -264,6 +264,10 @@ body {
   gap:15px;
 }
 
+.wrap{
+  flex-wrap: wrap;
+}
+
 /*Opacity*/
 .s-opaque{
   opacity:80%;
@@ -279,6 +283,14 @@ body {
 }
 .wide{
   width:100%;
+}
+
+/*bg*/
+.bg-white{
+  background-color: white;
+}
+.bg-pastel-yellow{
+  background-color: var(--pastel-yellow);
 }
 
 /*padding*/

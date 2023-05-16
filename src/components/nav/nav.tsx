@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent} from "react";
 import logo from "../../assets/book-club-web-logo-horizontal.png";
 import "./nav.css";
 import { useNavigate } from "react-router-dom";
@@ -57,18 +57,20 @@ const Nav: FunctionComponent<NavProps> = () => {
                 </button>
               </Link>
             )}
-            <Link to="/">
-              <button
-                type="button"
-                className="bright-yellow-button Nav-logout-button"
-                onClick={() => {
-                  window.sessionStorage.removeItem("user");
-                  window.sessionStorage.removeItem("jwt");
-                }}
-              >
-                sair
-              </button>
-            </Link>
+            {window.innerWidth > 450 && (
+              <Link to="/">
+                <button
+                  type="button"
+                  className="bright-yellow-button Nav-logout-button"
+                  onClick={() => {
+                    window.sessionStorage.removeItem("user");
+                    window.sessionStorage.removeItem("jwt");
+                  }}
+                >
+                  sair
+                </button>
+              </Link>
+            )}
           </div>
 
           <div className="logout-button-container"></div>

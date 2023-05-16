@@ -1,0 +1,18 @@
+.ScreenOverlay{
+    background-color: rgba(0,0,0,0.9);
+    position:fixed;
+    height:100vh;
+    width:100vw;
+    display:flex;
+    z-index:100000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top:0;
+    left:0;
+    overflow-y: hidden;
+}
+.screenoverlay-close-button{
+    
+    margin-bottom:1em;
+}

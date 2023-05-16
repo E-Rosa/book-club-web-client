@@ -5,8 +5,13 @@ import {
   useState,
   useEffect,
   ChangeEvent,
+  useContext,
 } from "react";
-import { Book, User } from "../../../../api/interfaces/interfaces";
+import {
+  Book,
+  BookMetadata,
+  User,
+} from "../../../../api/interfaces/interfaces";
 import whiteHeart from "../../../../assets/heart-white.png";
 import redHeart from "../../../../assets/heart-red.png";
 import whiteBookMark from "../../../../assets/book-mark-white.png";
@@ -15,22 +20,26 @@ import whiteFolder from "../../../../assets/folder-white.png";
 import yellowFolder from "../../../../assets/folder-yellow.png";
 import edit from "../../../../assets/edit.png";
 import deleteImg from "../../../../assets/delete.png";
-import addMetadataImg from "../../../../assets/add.png"
+import addMetadataImg from "../../../../assets/add.png";
 import "./book.css";
 import BookRepo from "../../../../api/repository/bookRepo";
 import { setError } from "../../../error/error";
 import { setSuccess } from "../../../success/success";
+import PostBookMetadata from "../bookMetadataForm/bookMetadataForm";
+import { UserMessageContext } from "../../../../App";
 
 interface BookComponentProps {
-  book: Book;
+  book: Book & { BookMetadata: BookMetadata };
   loadingSetter: Dispatch<SetStateAction<boolean>>;
   errorIsActiveSetter: Dispatch<SetStateAction<boolean>>;
   successIsActiveSetter: Dispatch<SetStateAction<boolean>>;
   updatedBooksListSetter: Dispatch<SetStateAction<boolean>>;
   //domUpdateSetter: Dispatch<SetStateAction<boolean>>;
-}
+} 
 
 const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
+  //responsibility: display the correct view between all properties of the book
+
   useEffect(() => {
     setVoters(props.book.voters);
     setReaders(props.book.readers);
@@ -40,9 +49,12 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
   const [isVotable, setIsVotable] = useState(true);
   const [isReadable, setIsReadable] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [isAddingMetadata, setIsAddingMetadata] = useState(false);
   const [isReadingDescription, setIsReadingDescription] = useState(false);
-  const [editedBookData, setEditedBookData] = useState<Book>(props.book);
-  const [bookData, setBookData] = useState<Book>(props.book);
+  const [editedBookData, setEditedBookData] = useState<
+    Book & { BookMetadata: BookMetadata }
+  >(props.book);
+  const [bookData, setBookData] = useState<Book & { BookMetadata: BookMetadata }>(props.book);
   const user = JSON.parse(window.sessionStorage.getItem("user") as string);
   const voterEmails =
     voters != undefined
@@ -134,7 +146,9 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       src={addMetadataImg}
       alt="add icon"
       className="s-clickable-icon"
-      onClick={()=>{}}
+      onClick={() => {
+        setIsAddingMetadata((prev) => !prev);
+      }}
     ></img>
   );
   const voterTags = (voters: User[]) => {
@@ -255,14 +269,13 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
     setEditedBookData((prevBookData) => {
       return { ...prevBookData, [event.target.name]: event.target.value };
     });
+    console.log(editedBookData)
   }
   async function submitEditedBook() {
     try {
       setIsEditing(false);
-      await BookRepo.updateBook(
-        props.loadingSetter,
-        editedBookData
-      );
+      console.log(editedBookData)
+      await BookRepo.updateBook(props.loadingSetter, editedBookData);
       setBookData(editedBookData);
       setSuccess(props.successIsActiveSetter);
     } catch (error) {
@@ -301,14 +314,14 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       <div className="flex justify-between width-100">
         {!isEditing && (
           <h3 className="Book-title g-font bold font-black">
-            {bookData.title}
+            {props.book.title}
           </h3>
         )}
         {isEditing && (
           <textarea
             className="book-title-input"
             name="title"
-            defaultValue={bookData.title}
+            defaultValue={props.book.title}
             placeholder="novo título"
             onChange={handleBookDataChange}
           />
@@ -329,24 +342,24 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
         <textarea
           className="book-author-input"
           name="author"
-          defaultValue={bookData.author}
+          defaultValue={props.book.author}
           placeholder="novo autor"
           onChange={handleBookDataChange}
         />
       )}
       {!isEditing && (
-        <span className="book-author-text">{bookData.author}</span>
+        <span className="book-author-text">{props.book.author}</span>
       )}
       {isEditing && (
         <textarea
           className="book-description-input"
           name="description"
-          defaultValue={bookData.description}
+          defaultValue={props.book.description}
           placeholder="descrição"
           onChange={handleBookDataChange}
         />
       )}
-      {!isReadingDescription && bookData.description != "" && (
+      {!isReadingDescription && props.book.description != "" && (
         <div className="description-container">
           <button
             className="toggle-description-button"
@@ -358,7 +371,7 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
       )}
       {isReadingDescription && (
         <div className="description-container">
-          <span className="book-description-text">{bookData.description}</span>
+          <span className="book-description-text">{props.book.description}</span>
           <button
             className="close-description-button"
             onClick={() => setIsReadingDescription(false)}
@@ -385,6 +398,16 @@ const BookComponent: FunctionComponent<BookComponentProps> = (props) => {
         <div className="vote-tags-container flex s-gap">
           {readerTags(readers)}
         </div>
+      )}
+      {isAddingMetadata && (
+        <PostBookMetadata
+          loadingSetter={props.loadingSetter}
+          errorIsActiveSetter={props.errorIsActiveSetter}
+          successIsActiveSetter={props.successIsActiveSetter}
+          bookData={props.book}
+          previousMetadata={props.book.BookMetadata}
+          updateBooksListSetter={props.updatedBooksListSetter}
+        />
       )}
     </div>
   );

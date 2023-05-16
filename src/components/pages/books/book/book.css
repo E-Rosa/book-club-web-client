@@ -75,3 +75,6 @@
   border: 0;
   color: var(--pastel-red);
 }
+.buttons-container{
+  align-self: flex-end;
+}

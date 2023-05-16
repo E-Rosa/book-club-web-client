@@ -76,14 +76,14 @@ const BookRefactored: FunctionComponent<BookProps> = (props) => {
       <DescriptionComponent description={props.bookData.description} />
       {props.displayBookVoters && (
         <TagsList
-          coloredIds={props.bookData.voters?.map((voter) => voter.id)}
+          coloredIds={props.bookData.voters?.map((voter) => voter.id == props.bookData.postAuthorId ? voter.id : "" )}
           highlightedTagColor="red"
           userTags={props.bookData.voters}
         />
       )}
       {props.displayBookReaders && (
         <TagsList
-          coloredIds={props.bookData.readers?.map((reader) => reader.id)}
+          coloredIds={props.bookData.readers?.map((reader) => reader.id == props.bookData.postAuthorId ? reader.id : "")}
           highlightedTagColor="blue"
           userTags={props.bookData.readers}
         />

@@ -63,11 +63,10 @@ const BookMetadataFormComponent: FunctionComponent<BookMetadataFormProps> = (
           authorNationality: newBookMetadata.authorNationality,
           pages: newBookMetadata.pages,
           year: newBookMetadata.year,
-          tags: tagsList.map((tag) => {
-            return { name: tag, id: "" };
-          }),
+          tags: []
         },
-        props.bookData.id
+        props.bookData.id,
+        tagsList
       );
       await BookRepo.postTags(props.loadingSetter, tagsList);
       props.updateBooksListSetter((prev) => !prev);

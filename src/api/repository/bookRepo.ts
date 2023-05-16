@@ -221,7 +221,8 @@ class BookRepo {
   static async postBookMetadata(
     loadingSetter: Dispatch<SetStateAction<boolean>>,
     book: BookMetadata,
-    bookId: string
+    bookId: string,
+    tagsList: string[]
   ) {
     try {
       return await RepositoryServices.fetchAndRetry(loadingSetter, async () => {
@@ -231,7 +232,7 @@ class BookRepo {
             authorization: `Bearer ${SessionServices.getSessionToken()}`,
             "Content-type": "application/json",
           },
-          body: JSON.stringify(book),
+          body: JSON.stringify({metadata: book, tags: tagsList}),
         });
         const parsedResponse = await response.json();
         if (response.status != 200) {

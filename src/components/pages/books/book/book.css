@@ -4,7 +4,7 @@
   align-items: flex-start;
   gap: 0px;
   padding: 1.5em;
-  max-width: 600px;
+  max-width: 83%;
   min-width: 220px;
   background-color: white;
   text-align: start;
@@ -17,7 +17,7 @@
 }
 @media screen and (max-width: 400px) {
   .BookComponent {
-    max-width: 250px;
+    max-width: 75%;
   }
 }
 .Book-title {
